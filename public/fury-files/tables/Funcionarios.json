@@ -1,0 +1,12 @@
+{
+	"table_name":"Funcionario",
+	"singular":"funcionario",
+	"plural":"funcionarios",
+	"current_table_path":"fury-files/tables/Funcionarios.json",
+	"fields":[
+			{"id":1,"display_name":"Id","html_name":"id","html_type":"text","migration_type":"null","nullable":"false","create_view_visibility":"false","index_view_visibility":"false","show_view_visibility":"false","edit_view_visibility":"false","index":"none","default":"auto-increment"},
+			{"id":2,"display_name":"Job","html_name":"job","html_type":"text","migration_type":"null","nullable":"false","create_view_visibility":"false","index_view_visibility":"false","show_view_visibility":"false","edit_view_visibility":"false","index":"none","default":"auto-increment"},
+			{"id":3,"display_name":"column4","html_name":"","html_type":"text","migration_type":"null","nullable":"false","create_view_visibility":"false","index_view_visibility":"false","show_view_visibility":"false","edit_view_visibility":"false","index":"none","default":""},
+			{"id":4,"display_name":"column5","html_name":"","html_type":"text","migration_type":"null","nullable":"false","create_view_visibility":"false","index_view_visibility":"false","show_view_visibility":"false","edit_view_visibility":"false","index":"none","default":""}
+	]
+}

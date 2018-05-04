@@ -1,0 +1,42 @@
+Routes
+
+Route::get('/fury', ['uses' => 'FuryController@index', 'as' => 'fury']);
+
+
+Views
+-index.blade.php
+						
+
+Controllers
+
+Models
+
+
+Css
+index.css
+
+JS
+index.js
+
+
+-TablesFolder and Config
+---
+app/tables
+if ($handle = opendir('../tables')) {
+app/tables/config.json
+---
+public/fury-files/tables/tables.json
+if ($handle = opendir('../public/fury-files/tables')) {
+public/fury-files/misc/config.json
+---
+
+
+-Images
+ajax-loader.gif
+index.css: (background: url(../img/ajax-loader.gif) center no-repeat #fff;)
+
+
+
+-Laravel Asset links url 
+<script src="{{asset('js/index.js')}}"></script>
+<link href="{{ asset('css/index.css') }}" rel="stylesheet">
