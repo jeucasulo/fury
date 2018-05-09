@@ -1,13 +1,23 @@
 Routes
 
+/* - - - fury routes - - - */ 
 Route::get('/fury', ['uses' => 'FuryController@index', 'as' => 'fury']);
+Route::post('/fury/update-json-table', ['uses' => 'FuryController@UpdateJsonTable', 'as' => 'fury.action']);
+Route::post('/fury/update-routes', ['uses' => 'FuryController@UpdateRoutes', 'as' => 'fury.update.routes']);
+Route::post('/fury/update-files', ['uses' => 'FuryController@UpdateFiles', 'as' => 'fury.update.files']);
+
+Route::get('/fury/config', ['uses' => 'FuryController@config', 'as' => 'fury.config']);
+
 
 
 Views
 -index.blade.php
+-config.blade.php
+-tables.blade.php
 						
 
 Controllers
+FuryController.php
 
 Models
 
@@ -17,6 +27,8 @@ index.css
 
 JS
 index.js
+config.js
+tables.js
 
 
 -TablesFolder and Config

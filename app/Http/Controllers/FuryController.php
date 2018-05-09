@@ -15,6 +15,90 @@ class FuryController extends Controller
     {
         return view('fury.index');
     }
+    public function config()
+    {
+        return view('fury.config');
+    }
+    public function tables()
+    {
+        return view('fury.tables');
+    }
+    public function CreateTable(){
+        // die(var_dump("CreateTableFunction"));
+        // echo "CreateNewTable";
+        // $tableDir = "../tables/";
+        $tableDir = "fury-files/tables/";
+        $fileName = $tableDir.$_POST['newTable'].".json";
+
+
+        $myObj = new \stdClass();
+        $myObj->table_name = "Usuario";
+        $myObj->singular = "usuario";
+        $myObj->plural = "usuarios";
+        $myObj->current_table_path = $fileName;
+        // $myObj->fields = ["id"=>"1"];
+        $myObj->fields = array(
+            array("id"=>"1",
+                "display_name"=>"Id",
+                "html_name"=>"id",
+                "html_type"=>"number",
+                "migration_type"=>"integer",
+                "nullable"=>"true",
+                "create_view_visibility"=>"false",
+                "index_view_visibility"=>"true",
+                "show_view_visibility"=>"true",
+                "edit_view_visibility"=>"false",
+                "index"=>"PK","default"=>"auto-increment")
+        );
+
+        // echo json_encode($myObj);
+
+        
+        // https://stackoverflow.com/questions/15810257/create-nested-json-object-in-php
+        
+        // echo gettype($myObj);
+
+        // $myJSON = json_encode($myObj);
+
+
+
+        // echo($myJsonString);
+        // $myJsonString = json_decode($myJsonString);
+
+        $fp = fopen($fileName, 'w');
+        fwrite($fp, json_encode($myObj));
+        fclose($fp);
+        
+        $response = array("message"=>"Done","status"=>"Ok");
+        return response()->json($response);
+    }
+    public function UpdateTable(Request $request){
+        
+        $tableDir = "fury-files/tables/";
+        $oldTableName = $_POST['oldFileName'];
+        $newTableName = $_POST['newFileName'];
+
+        $oldTableName = $this->CleanString($oldTableName);
+        $newTableName = $this->CleanString($newTableName);
+        
+        $oldTableName = $tableDir.$oldTableName;
+        $newTableName = $tableDir.$newTableName;
+
+        $oldTableName = $oldTableName.".json";
+        $newTableName = $newTableName.".json";
+
+        rename($oldTableName, $newTableName);
+
+        $response = array("message"=>"Done","status"=>"Ok");
+        return response()->json($response);
+    }
+    public function CleanString($string) {
+       $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+       $string = preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"),$string);
+
+       return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -153,6 +237,20 @@ class FuryController extends Controller
         $txt = $content;
         fwrite($myfile, $txt);
         fclose($myfile);
+    }
+    public function UpdateConfig(Request $resquest){
+        $fp = fopen('fury-files/misc/config.json', 'w');
+  
+        $response = $_POST['jsonConfigOutput'];
+        
+        $response = str_replace("|" , "\n", $response);
+        $response = str_replace("§" , "\\n", $response);
+
+        fwrite($fp, $response); 
+        fclose($fp);
+
+        $response = array("mensagem"=>"sucesso");   
+        return response()->json($response);
     }
 
 

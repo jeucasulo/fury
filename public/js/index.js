@@ -1,5 +1,5 @@
 $(document).ready(function(){
-		$(".se-pre-con").fadeOut(1000);;
+	$(".se-pre-con").fadeOut(1000);;
 
 	/*----------  Index  ----------*/
 	Index.HideElements();

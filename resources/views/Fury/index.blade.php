@@ -72,7 +72,7 @@
 	    </ul>
 	    <form class="form-inline my-2 my-lg-0">
 	      
-	        <a class="nav-link" href="#">Configurações<span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="{{route('fury.config')}}">Configurações<span class="sr-only">(current)</span></a>
 	        <a class="nav-link" href="#">Instruções<span class="sr-only">(current)</span></a>
 	        <a class="nav-link" href="#">Tabelas<span class="sr-only">(current)</span></a>
 	        <a class="nav-link" href="#">CRUDS<span class="sr-only">(current)</span></a>
