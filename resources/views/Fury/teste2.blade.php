@@ -1,6 +1,6 @@
 @extends('fury.master',['jsFile'=>'../js/tables.js','cssFile'=>'../css/index.css'])
 
-@section('title', 'Tabelas')
+@section('title', 'Teste2')
 
 
 @section('content')

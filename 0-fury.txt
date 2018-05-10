@@ -7,6 +7,12 @@ Route::post('/fury/update-routes', ['uses' => 'FuryController@UpdateRoutes', 'as
 Route::post('/fury/update-files', ['uses' => 'FuryController@UpdateFiles', 'as' => 'fury.update.files']);
 
 Route::get('/fury/config', ['uses' => 'FuryController@config', 'as' => 'fury.config']);
+Route::post('/fury/update-config', ['uses' => 'FuryController@UpdateConfig', 'as' => 'fury.update-config']);
+
+Route::get('/fury/tables', ['uses' => 'FuryController@tables', 'as' => 'fury.tables']);
+Route::post('/fury/create-table', ['uses' => 'FuryController@CreateTable', 'as' => 'fury.create-table']);
+Route::post('/fury/update-tables', ['uses' => 'FuryController@UpdateTable', 'as' => 'fury.update-tables']);
+
 
 
 
