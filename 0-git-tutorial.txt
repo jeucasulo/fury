@@ -1,5 +1,5 @@
 git remote set-url --add --push origin git@gitlab.com:laravel-packages-jc/fury.git
-git remote set-url --add --push origin https://github.com/jeucasulo/fury.git
+git remote set-url --add --push origin https://github.com/jeucasulo/testandofury.git
 ---------------------
 gitlab
 Command line instructions
@@ -38,11 +38,11 @@ echo "# fury" >> README.md
 git init
 git add README.md
 git commit -m "first commit"
-git remote add origin https://github.com/jeucasulo/fury.git
+git remote add origin https://github.com/jeucasulo/testandofury.git
 git push -u origin master
 
 …or push an existing repository from the command line
-git remote add origin https://github.com/jeucasulo/fury.git
+git remote add origin https://github.com/jeucasulo/testandofury.git
 git push -u origin master
 
 …or import code from another repository
