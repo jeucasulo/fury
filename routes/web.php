@@ -14,9 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/teste', function () {
-    return view('fury/teste2');
-});
+// Route::get('/teste', function () {
+//     return view('fury/teste2');
+// });
 
 
 /* - - - fury routes - - - */ 

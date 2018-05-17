@@ -1,6 +1,3 @@
-@php
-	$teste = addslashes("teste12\"3");
-@endphp
 @extends('fury.master',['jsFile'=>'../js/config.js','cssFile'=>'../css/index.css'])
 
 @section('title', 'Configuração')

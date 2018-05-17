@@ -15,7 +15,6 @@ Route::post('/fury/update-tables', ['uses' => 'FuryController@UpdateTable', 'as'
 
 
 
-
 Views
 -index.blade.php
 -config.blade.php
