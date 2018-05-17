@@ -1,0 +1,32 @@
+// {
+//     "name": "casulo/fury",
+//     "description": "Easiest Crud generator",
+//     "license":"GPL",
+//     "authors": [
+//     	{
+//     		"name":"Jeú Casulo",
+//     		"email":"jeucasulo@hotmail.com"
+//     	}
+//     ],
+//     "require": {},
+//     "autoload":{
+//     	"classmap":[
+//     		"src/views"
+//     	],
+//     	"psr-4":{
+//     		"Casulo\\Fury\\":"src/"
+//     	}
+//     },
+// }
+{
+    "name": "casulo/fury",
+    "description": "This demo package will do some calculations",
+    "authors": [
+        {
+            "name": "Jeu Junior",
+            "email": "jeucasulo@hotmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

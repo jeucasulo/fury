@@ -23,7 +23,9 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Casulo\\Fury\\": "packages/casulo/fury/src"
+
         }
     },
     "autoload-dev": {
