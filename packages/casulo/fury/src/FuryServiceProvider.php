@@ -20,12 +20,25 @@ class FuryServiceProvider extends ServiceProvider
             __DIR__.'/views' => resource_path('resources/views/Fury'),
         ],'fury');
 
+        
+
         $this->publishes([
-            __DIR__.'/assets' => public_path('fury-files'),
+            __DIR__.'/assets/js' => public_path('js'),
+        ], 'fury');
+        $this->publishes([
+            __DIR__.'/assets/css' => public_path('css'),
         ], 'fury');
 
         $this->publishes([
-            __DIR__.'/assets/ajax-loader.gif' => public_path('img'),
+            __DIR__.'/assets/ajax-loader.gif' => public_path('img/img.png'),
+        ], 'fury');
+
+        $this->publishes([
+            __DIR__.'/assets/bootstrap-4.0.0-dist' => public_path('bootstrap-4.0.0-dist'),
+        ], 'fury');
+
+        $this->publishes([
+            __DIR__.'/assets/fury-files' => public_path('fury-files'),
         ], 'fury');
 
 
