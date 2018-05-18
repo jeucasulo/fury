@@ -1,0 +1,12 @@
+{
+	"table_name":"Usuario",
+	"singular":"usuario",
+	"plural":"usuarios",
+	"current_table_path":"fury-files/tables/Controle.json",
+	"fields":[
+			{"id":1,"display_name":"Id","html_name":"id","html_type":"text","migration_type":"binary","nullable":"false","create_view_visibility":"false","index_view_visibility":"true","show_view_visibility":"true","edit_view_visibility":"true","index":"none","default":"auto-increment"},
+			{"id":2,"display_name":"Nome","html_name":"teste","html_type":"text","migration_type":"binary","nullable":"false","create_view_visibility":"false","index_view_visibility":"true","show_view_visibility":"true","edit_view_visibility":"true","index":"none","default":""},
+			{"id":3,"display_name":"Teste123","html_name":"teste","html_type":"text","migration_type":"null","nullable":"false","create_view_visibility":"false","index_view_visibility":"false","show_view_visibility":"false","edit_view_visibility":"false","index":"none","default":""},
+			{"id":6,"display_name":"column5","html_name":"","html_type":"text","migration_type":"binary","nullable":"false","create_view_visibility":"false","index_view_visibility":"false","show_view_visibility":"false","edit_view_visibility":"false","index":"none","default":""}
+	]
+}

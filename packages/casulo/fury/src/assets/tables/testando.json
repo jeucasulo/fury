@@ -1,0 +1,9 @@
+{
+	"table_name":"Usuario",
+	"singular":"usuario",
+	"plural":"usuarios",
+	"current_table_path":"fury-files/tables/testando.json",
+	"fields":[
+			{"id":1,"display_name":"Id","html_name":"id","html_type":"number","migration_type":"integer","nullable":"true","create_view_visibility":"false","index_view_visibility":"true","show_view_visibility":"true","edit_view_visibility":"false","index":"PK","default":"auto-increment"}
+	]
+}
