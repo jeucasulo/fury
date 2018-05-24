@@ -17,7 +17,8 @@ class FuryServiceProvider extends ServiceProvider
         
         // from -> to, de: para:
         $this->publishes([
-            __DIR__.'/views' => resource_path('views/Fury/'),
+            // __DIR__.'/views' => resource_path('views/Fury/'),
+            __DIR__.'/views' => base_path('resources/views/Fury/'),
         ],'fury');
 
         // ok
