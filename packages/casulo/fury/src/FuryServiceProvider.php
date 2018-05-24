@@ -17,26 +17,29 @@ class FuryServiceProvider extends ServiceProvider
         
         // from -> to, de: para:
         $this->publishes([
-            __DIR__.'/views' => resource_path('resources/views/Fury'),
+            __DIR__.'/views' => resource_path('views/Fury/'),
         ],'fury');
 
-        
-
+        // ok
         $this->publishes([
             __DIR__.'/assets/js' => public_path('js'),
         ], 'fury');
+        
+        // ok        
         $this->publishes([
             __DIR__.'/assets/css' => public_path('css'),
         ], 'fury');
-
+        // ok
         $this->publishes([
             __DIR__.'/assets/ajax-loader.gif' => public_path('img/img.png'),
         ], 'fury');
 
+        // ok
         $this->publishes([
             __DIR__.'/assets/bootstrap-4.0.0-dist' => public_path('bootstrap-4.0.0-dist'),
         ], 'fury');
 
+        // ok
         $this->publishes([
             __DIR__.'/assets/fury-files' => public_path('fury-files'),
         ], 'fury');
