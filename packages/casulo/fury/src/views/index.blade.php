@@ -190,8 +190,8 @@
   						  	<textarea id="createView_string_output" name="contentToWriteFile[]"></textarea>
   						  	<label>Arquivo: &nbsp</label>
   						  	<input id="viewCrudName" name="viewCrudName[]" class="form-control" hidden="hidden" />
-  						  	<input id="create_path" name="dirPath[]" class="form-control"  />
-  						  	<input id="create_name" name="fileName[]" class="form-control"  />
+  						  	<input id="create_path" name="dirPath[]" class="form-control" hidden="hidden" />
+  						  	<input id="create_name" name="fileName[]" class="form-control" hidden="hidden" />
   						  	<label id="create_path_label" name="request_path_label" class="form-control"></label>
   						  	<p><button id="generateCreateView" type="button" class="btn btn-info">Gerar Create View </button></p>
   						  	<p><button id="generateCreateViewFile" type="button" class="btn btn-success">Gerar arquivo</button></p>

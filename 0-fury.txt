@@ -1,3 +1,29 @@
+Não esquecer de alterar o composer.json principal com o código abaixo para que o usuário não tenha que inserir manualmente o provider no provider array do config/app.php
+"extra": {
+    "laravel": {
+        "providers": [
+            "Barryvdh\\Debugbar\\ServiceProvider"
+        ],
+        "aliases": {
+            "Debugbar": "Barryvdh\\Debugbar\\Facade"
+        }
+    }
+},
+
+---------------
+e esse também
+    "autoload": {
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ],
+        "psr-4": {
+            "App\\": "app/",
+            "Casulo\\Fury\\": "packages/casulo/fury/src"
+
+        }
+    },
+---------------
 Routes
 
 /* - - - fury routes - - - */ 

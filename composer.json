@@ -36,6 +36,9 @@
     "extra": {
         "laravel": {
             "dont-discover": [
+            ],
+            "providers": [
+                "Casulo\\Fury\\FuryServiceProvider"
             ]
         }
     },

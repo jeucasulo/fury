@@ -929,9 +929,10 @@ var Views = {
 
 	    let createViewStringPhp = "";
 
-	    createViewStringPhp += "@\extends('layouts.app') \n |";
-	    createViewStringPhp += "@\section('title','Create') \n |";
-	    createViewStringPhp += "@\section('content') \n | ";
+	    createViewStringPhp += "@\extends('layouts.app')\n§";
+	    createViewStringPhp += "@\section('title','Create')\n§";
+	    createViewStringPhp += "@\section('content')\n§";
+
 
 	    
 	    createViewStringPhp +="\n §<div class='container'>";
@@ -1001,6 +1002,11 @@ var Views = {
 		let totalColumns = $("#totalColumns").html();
 
 		indexViewStringPhp = "";
+
+
+		indexViewStringPhp += "@\extends('layouts.app') \n§";
+		indexViewStringPhp += "@\section('title','Index') \n§";
+		indexViewStringPhp += "@\section('content') \n§";
 
 
 
@@ -1084,6 +1090,11 @@ var Views = {
 
 
 		    let showViewStringPhp = "";
+
+		    showViewStringPhp += "@\extends('layouts.app') \n§";
+		    showViewStringPhp += "@\section('title','Show') \n§";
+		    showViewStringPhp += "@\section('content') \n§";
+
 		    showViewStringPhp +="\n §<div class='container'>";
 		    showViewStringPhp +="\n §<div class='row'>";
 		    showViewStringPhp +="\n §<div class='col-md-10 col-md-offset-1'>";
@@ -1157,9 +1168,9 @@ var Views = {
 
 	    var editViewStringPhp = "";
 
-	    editViewStringPhp += "@\extends('layouts.app') \n §";
-	    editViewStringPhp += "@\section('title','Show') \n §";
-	    editViewStringPhp += "@\section('content') \n § ";
+	    editViewStringPhp += "@\extends('layouts.app') \n§";
+	    editViewStringPhp += "@\section('title','Show') \n§";
+	    editViewStringPhp += "@\section('content') \n§";
 
 	    editViewStringPhp +="\n §<div class='container'>";
 	    editViewStringPhp +="\n §<div class='row'>";
