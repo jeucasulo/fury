@@ -13,11 +13,15 @@ class FuryController extends Controller
     }
     public function config()
     {
-        return view('fury.config');
+        return view('fury::config');
     }
     public function tables()
     {
-        return view('fury.tables');
+        return view('fury::tables');
+    }
+    public function generate()
+    {
+        return view('fury::generate');
     }
 
 

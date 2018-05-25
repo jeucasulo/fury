@@ -12,6 +12,8 @@ Route::get('subtract/{a}/{b}', 'Casulo\Fury\FuryController@subtract');
 
 /* - - - fury routes - - - */ 
 Route::get('/fury', ['uses' => 'Casulo\Fury\FuryController@index', 'as' => 'fury']);
+
+Route::get('/fury/generate', ['uses' => 'Casulo\Fury\FuryController@generate', 'as' => 'fury.generate']);
 Route::post('/fury/update-json-table', ['uses' => 'Casulo\Fury\FuryController@UpdateJsonTable', 'as' => 'fury.action']);
 Route::post('/fury/update-routes', ['uses' => 'Casulo\Fury\FuryController@UpdateRoutes', 'as' => 'fury.update.routes']);
 Route::post('/fury/update-files', ['uses' => 'Casulo\Fury\FuryController@UpdateFiles', 'as' => 'fury.update.files']);
