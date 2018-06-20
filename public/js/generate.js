@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(".se-pre-con").fadeOut(1000);;
+	$(".se-pre-con").fadeOut(1000);
 
 	/*----------  Index  ----------*/
 	Index.HideElements();
@@ -27,7 +27,7 @@ $(document).ready(function(){
 
 var Globals = {
 	// CurrentTableName :"../tables/"+ $("#currentTable").val(),
-	CurrentTableName :"fury-files/tables/"+ $("#currentTable").val(),
+	CurrentTableName :"/fury-files/tables/"+ $("#currentTable").val(),
 	current_table_path : $("#currentTableStatic").html(),
 	totalColumns : $("#totalColumns").html(),
 };
@@ -254,7 +254,7 @@ var Index = {
 	GettingJsonConfigData(){
 		// alert("config");
 		// $.getJSON( "config.json", function( data ) {
-		$.getJSON( "fury-files/misc/config.json", function( data ) {
+		$.getJSON( "/fury-files/misc/config.json", function( data ) {
 		  // alert(data.controller_path);
 		  $("#routes_path").val(data.routes_path);
 		  $("#routes_path_label").html(data.routes_path);
@@ -536,13 +536,13 @@ var Index = {
 		$("#createView_string_output,#indexView_string_output, #showView_string_output, #editView_string_output").val("");
 	},
 	SavingNewJsonFile:function(){
+		  	// alert("fodaci");
 
 		console.log("aqui caralho");
 
 		var formData = $("#saveForm").serialize();
 		$.ajax({
 		  	// data:  formData, //data to be send
-
 			type: "POST",
 			url: "/fury/update-json-table",
 			dataType: "json",
@@ -557,7 +557,8 @@ var Index = {
 
 		  
 		  success: function(data){
-		  	// alert("foi");
+		  	alert(data);
+		  	console.log(data);
 		  	$("#codeGenerator").slideDown("slow");
 		  	$("#tableSection").slideUp("slow");
 
@@ -565,6 +566,9 @@ var Index = {
 		    console.log(data);
 		  },
 		  error: function(data){
+		  	alert(data);
+		  	console.log(data);
+
 		    console.log("Fail...");
 		  }
 		}).done(function(){

@@ -169,11 +169,19 @@ class FuryController extends Controller
     }
     
     public function UpdateJsonTable(Request $request){
+
+        // die(var_dump($request->all()));
+        
+        // return "vai";
+        // dd("vai");
     
         $response = $request->jsonTableOutPut;
         $response = str_replace(" | " , "\n", $response);
 
         $responseStringToJsonConvert = json_decode($response, true);
+
+        
+
 
         $fp = fopen($responseStringToJsonConvert['current_table_path'], 'w');
 

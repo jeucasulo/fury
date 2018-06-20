@@ -1,7 +1,7 @@
 {
-	"table_name":"Usuario",
-	"singular":"usuario",
-	"plural":"usuarios",
+	"table_name":"Controle",
+	"singular":"controle",
+	"plural":"controles",
 	"current_table_path":"fury-files/tables/Controle.json",
 	"fields":[
 			{"id":1,"display_name":"Id","html_name":"id","html_type":"text","migration_type":"binary","nullable":"false","create_view_visibility":"false","index_view_visibility":"true","show_view_visibility":"true","edit_view_visibility":"true","index":"none","default":"auto-increment"},

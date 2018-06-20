@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(".se-pre-con").fadeOut(1000);;
+	$(".se-pre-con").fadeOut(1000);
 
 	/*----------  Index  ----------*/
 	Index.HideElements();
@@ -27,7 +27,7 @@ $(document).ready(function(){
 
 var Globals = {
 	// CurrentTableName :"../tables/"+ $("#currentTable").val(),
-	CurrentTableName :"fury-files/tables/"+ $("#currentTable").val(),
+	CurrentTableName :"/fury-files/tables/"+ $("#currentTable").val(),
 	current_table_path : $("#currentTableStatic").html(),
 	totalColumns : $("#totalColumns").html(),
 };
@@ -254,7 +254,7 @@ var Index = {
 	GettingJsonConfigData(){
 		// alert("config");
 		// $.getJSON( "config.json", function( data ) {
-		$.getJSON( "fury-files/misc/config.json", function( data ) {
+		$.getJSON( "/fury-files/misc/config.json", function( data ) {
 		  // alert(data.controller_path);
 		  $("#routes_path").val(data.routes_path);
 		  $("#routes_path_label").html(data.routes_path);
@@ -933,7 +933,6 @@ var Views = {
 	    createViewStringPhp += "@\section('title','Create')\n§";
 	    createViewStringPhp += "@\section('content')\n§";
 
-
 	    
 	    createViewStringPhp +="\n §<div class='container'>";
 	    createViewStringPhp +="\n §<div class='row'>";
@@ -950,7 +949,7 @@ var Views = {
 	    	
 
 	    	let display_name = $("#display_name"+i).val();
-	    	alert(display_name);
+	    	// alert(display_name);
 	    	let html_name = $("#html_name"+i).val();
 	    	let html_type = $("#html_type"+i).val();
 	    	let migration_type = $("#migration_type"+i).val();
@@ -1003,10 +1002,10 @@ var Views = {
 
 		indexViewStringPhp = "";
 
-
 		indexViewStringPhp += "@\extends('layouts.app') \n§";
 		indexViewStringPhp += "@\section('title','Index') \n§";
 		indexViewStringPhp += "@\section('content') \n§";
+
 
 
 
@@ -1169,7 +1168,7 @@ var Views = {
 	    var editViewStringPhp = "";
 
 	    editViewStringPhp += "@\extends('layouts.app') \n§";
-	    editViewStringPhp += "@\section('title','Show') \n§";
+	    editViewStringPhp += "@\section('title','Edit') \n§";
 	    editViewStringPhp += "@\section('content') \n§";
 
 	    editViewStringPhp +="\n §<div class='container'>";

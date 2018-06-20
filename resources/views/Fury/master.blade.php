@@ -53,7 +53,7 @@
 			      
 			    </ul>
 			    <form class="form-inline my-2 my-lg-0">
-			        <a class="nav-link" href="{{route('fury')}}">CRUDS<span class="sr-only">(current)</span></a>
+			        <a class="nav-link" href="{{route('fury.generate')}}">CRUDS<span class="sr-only">(current)</span></a>
 			        <a class="nav-link" href="{{route('fury.tables')}}">Tabelas<span class="sr-only">(current)</span></a>
 			        <a class="nav-link" href="{{route('fury.config')}}">Configurações<span class="sr-only">(current)</span></a>
 			        <a class="nav-link" href="#">Instruções<span class="sr-only">(current)</span></a>
