@@ -1,20 +1,19 @@
 @extends('fury.master')
 
 @section('title', 'Custom')
-@section('jsFile', '../js/index.js')
-@section('cssFile', '../css/index.css')
+@section('jsFile', asset("").'js/generate.js')
+@section('cssFile', asset("").'css/generate.css')
 
 @section('content')
     @parent
     
-
-
   <div id="hiddenLabels" class="container">
     <div id="" class="row">
       <div id="" class="col-12-xs">
         <label id="table_name_label"></label><br>
         <label id="table_singular_label"></label><br>
         <label id="table_plural_label"></label><br>
+        <label id="currentTableStaticShort" name="currentTableStaticShort"></label><br>
         <label id="totalColumns" name="totalColumns" class="badge badge-primary"></label><br>
       </div>
     </div>
@@ -63,9 +62,11 @@
               <span>Nome: </span><input type="text" id="tableName" name="tableName" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
               <span>Singular: </span><input type="text" id="tableSingular" name="tableSingular" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
               <span>Plural: </span><input type="text" id="tablePlural" name="tablePlural" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
-              Arquivo:<label id="currentTableStatic"></label>
+              
               &nbsp&nbsp&nbsp&nbsp
               <button type="button" id="addNewCOlumn" class="btn btn-info float-sm-right">+ Coluna</button>
+              <br>
+              Arquivo:<label id="currentTableStatic"></label>
 
               <hr>
               <div id="header_fields" class="row text-center">
@@ -89,7 +90,7 @@
             </form>
             
 
-            <button id="updateJsonTable" class="btn btn-success">Salvar tabela </button>
+            <button id="updateJsonTable" class="btn btn-success">Salvar tabela</button>
 
 
               <!-- <button id="updateJson">Atualizar  </button> -->
@@ -248,6 +249,16 @@
       </div>
     </div>
 
+
+    <div id="" class="container">
+      <div id="" class="row">
+        <div id="" class="col-12">
+          <textarea id="navView" class="sr-only"></textarea>
+          <textarea id="footerView" class="sr-only"></textarea>
+        </div>
+      </div>
+    </div>
+
   </section>
 
 
@@ -271,6 +282,12 @@
       </div>
     </div>
   </div>
+
+  <script>
+      // "global" vars, built using blade
+      var assetPath = '{{ asset('') }}';
+  </script>
+
   
 @endsection
 

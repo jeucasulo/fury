@@ -1,8 +1,8 @@
 @extends('fury.master')
 
 @section('title', 'Fury')
-@section('jsFile', 'js/index.js')
-@section('cssFile', 'css/index.css')
+@section('jsFile', asset("").'js/index.js')
+@section('cssFile', asset("").'css/index.css')
 
 
 @section('content')

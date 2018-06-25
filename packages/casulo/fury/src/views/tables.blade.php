@@ -1,11 +1,15 @@
-@extends('fury.master',['jsFile'=>'../js/tables.js','cssFile'=>'../css/index.css'])
+@extends('fury.master')
 
 @section('title', 'Tabelas')
+@section('jsFile', asset("").'js/tables.js')
+@section('cssFile', asset("").'css/index.css')
+
 
 
 @section('content')
     @parent
     
+    <br>
     <div id="" class="container">
     	<div id="" class="row">
     		<div id="" class="col-12">
@@ -14,12 +18,16 @@
     	</div>
     </div>
     <br>
+    
+
     <div id="" class="container">
     	<div id="" class="row">
     		
     		<div id="" class="col-12 text-center">
-    			<?php
-    			if ($handle = opendir('fury-files/tables')) {
+    			<p hidden="hidden">{{$publicPath = public_path('')}}</p>
+
+          <?php
+    			if ($handle = opendir($publicPath.'/fury-files/tables')) {
     			    // echo "Manipulador de diretório: $handle\n";
     			    // echo "Arquivos:\n<br>";
     				$i = 0;
@@ -36,16 +44,20 @@
     			        	echo "</button>";
     			        	// echo "</h5>";
     			        	echo "<div class='hide-table' id='divTable".$i."'>";
-    						echo "<p>";
-    						echo "<button id='".$file."' type='button' class='btn btn-block btn-success set-name'>Alterar nome</button>";
-    						echo "</p>";
+                echo "<div class='row'>";
+                  echo "<div class='col'>";
+                  echo "<button id='".$file."' type='button' class='btn btn-block btn-success set-name'>Alterar nome</button>";
+                  echo "</div>";
+                  
+                  echo "<div class='col'>";
+      						echo "<button id='".$file."' type='button' class='btn btn-block btn-danger set-name'>Deletar</button>";
+                  echo "</div>";
+    						echo "</div>";
     			        	echo "</div>";
     			        	echo "</div>";
     			        	// echo "</br>";
 
-    			        	
     			        	// echo '</tbody>';
-
     			        	$i++;
     			        }
 
@@ -133,6 +145,13 @@
         </div>
       </div>
     </div>
+
+
+    <script>
+        // "global" vars, built using blade
+        var assetPath = '{{ asset('') }}';
+    </script>
+
 
 
 @endsection

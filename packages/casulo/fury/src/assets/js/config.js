@@ -13,8 +13,8 @@ var Index = {
 		// alert("sadf")
 		
 		// $.getJSON( "config.json", function(data) {
-		$.getJSON( "/fury-files/misc/config.json", function(data) {
-		// $.getJSON( "fury-files/misc/config.json", function( data ) {
+		// $.getJSON( "/fury-files/misc/config.json", function(data) {
+		$.getJSON(assetPath+"fury-files/misc/config.json", function( data ) {
 
 			$("#routesPath").val(data.routes_path);
 			$("#defaultRoutesPath").html(data.default_routes_path);

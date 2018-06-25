@@ -52,7 +52,8 @@ var Tables = {
 		  // console.log( index + ": " + fileName );
 		  
 
-			$.getJSON("../fury-files/tables/"+fileName, function( myObj ) {
+			// $.getJSON("../fury-files/tables/"+fileName, function( myObj ) {
+			$.getJSON(assetPath+"fury-files/tables/"+fileName, function( myObj ) {
 					let totalColumns = 0;
 					// let lastId = myObj.fields[(myObj.fields.length-1)].id;
 					let myString = "";
