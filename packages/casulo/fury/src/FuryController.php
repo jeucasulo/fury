@@ -1,27 +1,40 @@
 <?php
 
+
+
 namespace Casulo\Fury;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 
+
+
+
 class FuryController extends Controller
 {
+
+    // $myVar = "testando";
+    // 
+    public function assets(){
+        return asset('');
+    }
+
+
     public function index(){
-    	return view('fury::index');
+    	return view('fury.index');
     }
     public function config()
     {
-        return view('fury::config');
+        return view('fury.config');
     }
     public function tables()
     {
-        return view('fury::tables');
+        return view('fury.tables');
     }
     public function generate()
     {
-        return view('fury::generate');
+        return view('fury.generate');
     }
 
 
@@ -170,25 +183,21 @@ class FuryController extends Controller
     
     public function UpdateJsonTable(Request $request){
 
-        // die(var_dump($request->all()));
-        
-        // return "vai";
-        // dd("vai");
-    
         $response = $request->jsonTableOutPut;
         $response = str_replace(" | " , "\n", $response);
 
         $responseStringToJsonConvert = json_decode($response, true);
 
+        //removes the 'asset()' string path from the final newJsonFileTablePath
+        // $newJsonFileTablePath = str_replace(asset(""),"",$responseStringToJsonConvert['current_table_path']);
+        $newJsonFileTablePath = $responseStringToJsonConvert['current_table_path'];
+
+        $fp = fopen($newJsonFileTablePath, 'w'); 
         
-
-
-        $fp = fopen($responseStringToJsonConvert['current_table_path'], 'w');
 
         fwrite($fp, $response); 
         fclose($fp);
-        // return $response;
-        // return $responseStringToJsonConvert;
+        
         return response()->json($responseStringToJsonConvert);
     }
 
@@ -211,31 +220,36 @@ class FuryController extends Controller
         
         // $dirPath = $_POST['dirPath'];
         $dirPath = $request->dirPath;
+        // $dirPath = "app/Http/Controllers";
         $fileName = $request->fileName;
-
+        
         $dirPath = array_filter($dirPath, function($item) {
           return $item != null;
         });
+
+
         // die(var_dump($request->fileName));
         $dirPath = implode("", $dirPath);
+        // $dirPath = "app/Http/Controllers";
         $fileName = implode("", $fileName);
 
+        // check if it is a crud file
         if(isset($_POST['viewCrudName'])){
             // write crud files
             $viewCrudName = implode("|",$request->viewCrudName);
             $myPath = base_path()."/".$dirPath."/".$viewCrudName; // é pasta
-            echo "its a crud name!\n\n";
+            // echo "its a crud name!\n\n";
         }else{
             // write item files
             $myPath = base_path()."/".$dirPath; // é pasta
-            echo "isnt a crud name at all sorry\n\n";
-
+            // echo "isnt a crud name at all sorry\n\n";
         }
 
+        // check if folder exists
         if(is_dir($myPath)){
-            echo "\n\nPasta '$myPath' existe\n\n";
+            // echo "\n\nPasta '$myPath' existe\n\n";
         }else{
-            echo "\n\nPasta '$myPath' não existia mas foi criada\n\n";
+            // echo "\n\nPasta '$myPath' não existia mas foi criada\n\n";
             mkdir($myPath, 0777, true);
         }
 
@@ -243,11 +257,20 @@ class FuryController extends Controller
         // $myfile = fopen("app/fodaci.php", "w") or die("Unable to open file!");
         // $myfile = fopen("app/".$fileName.".php", "w") or die("Unable to open file!");
         
-        $myfile = fopen($myPath."/".$fileName.".php", "w") or die("Unable to open file!");
-        $txt = $content;
-        fwrite($myfile, $txt);
-        fclose($myfile);
+        // check if file exists
+        if(file_exists($myPath."/".$fileName.".php")){
+            $response = array("title"=>"Atenção","message"=>"Arquivo já existe","class"=>"bg-danger");
+        }else{
+            $myfile = fopen($myPath."/".$fileName.".php", "w") or die("Unable to open file!");
+            $txt = $content;
+            fwrite($myfile, $txt);
+            fclose($myfile);    
+            $response = array("title"=>"Êxito","message"=>"Arquivo criado com sucesso!","class"=>"bg-success");
+        }
+
+        return response()->json($response);
     }
+
     public function UpdateConfig(Request $resquest){
         $fp = fopen('fury-files/misc/config.json', 'w');
     

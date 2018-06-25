@@ -26,8 +26,10 @@ $(document).ready(function(){
 });
 
 var Globals = {
-	// CurrentTableName :"../tables/"+ $("#currentTable").val(),
-	CurrentTableName :"/fury-files/tables/"+ $("#currentTable").val(),
+	// CurrentTableName :"/fury-files/tables/"+ $("#currentTable").val(),
+	// the assetPath var was declared on the main file
+	CurrentTableName : assetPath+"fury-files/tables/"+ $("#currentTable").val(),
+	CurrentTableNameShort : "fury-files/tables/"+ $("#currentTable").val(),
 	current_table_path : $("#currentTableStatic").html(),
 	totalColumns : $("#totalColumns").html(),
 };
@@ -72,14 +74,18 @@ var Index = {
 
 
 			$("#currentTableStatic").html(Globals.CurrentTableName);
+			$("#currentTableStaticShort").html(Globals.CurrentTableNameShort);
 			// $("#tableNameLabel").html($("#tableName").val());
 
 		 	//    $('body').on('click','#tableName',function(){
 			//       alert($(this).attr('id'));
 			// }); 
 			$("#currentTable").on("change", function(){
-					Globals.CurrentTableName = "fury-files/tables/"+ $("#currentTable").val();
+					// Globals.CurrentTableName = "fury-files/tables/"+ $("#currentTable").val();
+					Globals.CurrentTableName = assetPath+"fury-files/tables/"+ $("#currentTable").val();
+					Globals.CurrentTableNameShort = "fury-files/tables/"+ $("#currentTable").val();
 					$("#currentTableStatic").html(Globals.CurrentTableName);			
+					$("#currentTableStaticShort").html(Globals.CurrentTableNameShort);
 					Index.GettingJsonTableData();
 					Index.SetingSelects();
 					Index.SetingCheckboxes();
@@ -252,9 +258,11 @@ var Index = {
 		});
 	},
 	GettingJsonConfigData(){
+		// console.log("GettingJsonConfigData");
 		// alert("config");
 		// $.getJSON( "config.json", function( data ) {
-		$.getJSON( "/fury-files/misc/config.json", function( data ) {
+		// $.getJSON( "/fury-files/misc/config.json", function( data ) {
+		$.getJSON( assetPath+"fury-files/misc/config.json", function( data ) {
 		  // alert(data.controller_path);
 		  $("#routes_path").val(data.routes_path);
 		  $("#routes_path_label").html(data.routes_path);
@@ -272,6 +280,9 @@ var Index = {
 		  $("#show_path_label").html(data.views_path);
 		  $("#edit_path").val(data.views_path);
 		  $("#edit_path_label").html(data.views_path);
+		  
+		  $("#navView").val(data.nav_user);
+		  $("#footerView").val(data.footer_user);
 		});
 	},
 	SetingSelects:function(){
@@ -315,7 +326,7 @@ var Index = {
 		let tableName = $("#tableName").val();
 		let tableSingular = $("#tableSingular").val();
 		let tablePlural = $("#tablePlural").val();
-		let current_table_path = $("#currentTableStatic").html();
+		let current_table_path = $("#currentTableStaticShort").html();
 
 		$("#controller_name").val(tableName+"Controller");
 		$("#model_name").val(tableName);
@@ -333,6 +344,7 @@ var Index = {
 		newJsonFile += "\"table_name\":\""+tableName+"\", | \n\t";
 		newJsonFile += "\"singular\":\""+tableSingular+"\", | \n\t";
 		newJsonFile += "\"plural\":\""+tablePlural+"\", | \n\t";
+		// newJsonFile += "\"current_table_path\":\""+current_table_path+"\", | \n\t";
 		newJsonFile += "\"current_table_path\":\""+current_table_path+"\", | \n\t";
 		newJsonFile += "\"fields\":[ | \n\t";
 
@@ -428,7 +440,7 @@ var Index = {
 										    "<option value='reset'>reset</option>" + 
 										    "<option value='submit'>submit</option>" + 
 									    "</select></div>";
-			    newColumnHtml += "<div class='col-custom'><select id='migration_type" + newColumnId + "' name='migration_type" + newColumnId + "' class='form-control-sm'>" +
+			    newColumnHtml += "<div class='col-custom'><select id='migration_type" + newColumnId + "' name='migration_type" + newColumnId + "' class='form-control-sm' style='width:100px'>" +
 									        "<option value='binary'>binary</option>"+
 											"<option value='boolean'>boolean</option>"+
 											"<option value='char'>char</option>"+
@@ -557,22 +569,20 @@ var Index = {
 
 		  
 		  success: function(data){
-		  	alert(data);
-		  	console.log(data);
+		  	// alert(data);
+		  	// console.log(data);
 		  	$("#codeGenerator").slideDown("slow");
 		  	$("#tableSection").slideUp("slow");
 
-		    console.log("success");
+		    console.log("Success");
 		    console.log(data);
 		  },
 		  error: function(data){
-		  	alert(data);
+		    console.log("Fail");
 		  	console.log(data);
-
-		    console.log("Fail...");
 		  }
 		}).done(function(){
-			console.log("fechou");
+			console.log("Done");
 		});
 
 	},
@@ -588,9 +598,11 @@ var Index = {
 };
 var Message = {
 	ShowMessage:function(dataTitle, dataMessage,dataClass){
+		$("#modal-header").removeClass();
+		$("#modal-header").addClass("modal-header");
+		$("#modal-header").addClass(dataClass);
 		$("#modal-title").html(dataTitle);
 		$("#modal-body").html(dataMessage);
-		$("#modal-header").addClass(dataClass);
 		$("#messageModal").modal("show");
 	}
 };
@@ -659,6 +671,7 @@ var Files = {
 			var formData = currentForm.serialize();
 			// alert("foi");
 			$.ajax({
+              dataType: "json", // data to receive
 			  data:  formData, //data to be send
 			  type: "POST",
 			  url: "/fury/update-files",
@@ -666,18 +679,49 @@ var Files = {
 	  	      	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	  	      },
 			  success: function(data){
+			  	Message.ShowMessage(data.title,data.message,data.class);
 			  	// $("#codeGenerator").slideDown("slow");
 			  	// $("#tableSection").slideUp("slow");
-			    console.log("Done...");
-			    console.log(data);
+			    // console.log("Done...");
+			    // console.log(data);
 			  },
 			  error: function(data){
-			    console.log("Fail...");
-			    console.log(data);
+			  	Message.ShowMessage(data.title,data.message,data.class);
+			    // console.log("Fail...");
+			    // console.log(data);
 			  }
 			});
 
 		}
+		//
+		//	GenerateRoutesFile:function(){
+	// 	console.log("GenerateRoutesFile");
+	// 	var formData = $("#saveRoutesfile").serialize();
+	// 	$.ajax({
+ //          dataType: "json", // data to receive
+	// 	  data:  formData, // data to be send
+	// 	  type: "POST",
+	// 	  url: "/fury/update-routes",
+	// 	  headers: {
+	// 	    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	// 	  },
+		  
+	// 	  success: function(data){
+	// 	  	// console.log("Sucess");
+	// 	  	// console.log(data);
+	// 	  	Message.ShowMessage(data.title,data.message,data.class);
+	// 	  },
+	// 	  error: function(data){
+	// 	  	// console.log("Fail");
+	// 	  	// console.log(data);
+	// 	  	Message.ShowMessage("Erro","Javascript ","bg-danger");
+	// 	  }
+		  
+	// 	});
+
+	// },
+
+		//
 
 
 	}
@@ -930,9 +974,13 @@ var Views = {
 	    let tableSingular = $("#tableSingular").val();
 	    let tablePlural = $("#tablePlural").val();
 	    let totalColumns = $("#totalColumns").html();
+	    
+	    let navView = $("#navView").val();
+	    let footerView = $("#footerView").val();
 
 	    let createViewStringPhp = "";
 
+	    createViewStringPhp += navView + "\n\n§§";
 	    createViewStringPhp += "@\extends('layouts.app')\n§";
 	    createViewStringPhp += "@\section('title','Create')\n§";
 	    createViewStringPhp += "@\section('content')\n§";
@@ -993,6 +1041,11 @@ var Views = {
 	    createViewStringPhp +="\n §</div>";
 
 	    createViewStringPhp +="\n §</form>";
+	    createViewStringPhp += "\n §@"+"endsection";
+
+	    
+	    createViewStringPhp +="\n §"+footerView;
+
 	    createViewStringJs = createViewStringPhp.replace(/[§]/g,"");
 
 	    $("#createView_string_output").val(createViewStringJs);
@@ -1004,8 +1057,13 @@ var Views = {
 		let tablePlural = $("#tablePlural").val();
 		let totalColumns = $("#totalColumns").html();
 
+		let navView = $("#navView").val();
+		let footerView = $("#footerView").val();
+
+
 		indexViewStringPhp = "";
 
+		indexViewStringPhp += navView+"\n§\n§";
 		indexViewStringPhp += "@\extends('layouts.app') \n§";
 		indexViewStringPhp += "@\section('title','Index') \n§";
 		indexViewStringPhp += "@\section('content') \n§";
@@ -1079,6 +1137,7 @@ var Views = {
 		indexViewStringPhp += "\n §\t\t\t@\endforeach \n §";
 		indexViewStringPhp += "\t\t</div> \n § \t</div> \n §</div>";
 		indexViewStringPhp += "\n §@"+"endsection";
+		indexViewStringPhp += "\n §"+footerView;
 
 		indexViewStringJs = indexViewStringPhp.replace(/[§]/g,"");
 
@@ -1090,10 +1149,13 @@ var Views = {
 		    let tablePlural = $("#tablePlural").val();
 		    let totalColumns = $("#totalColumns").html();
 
+		    let navView = $("#navView").val();
+		    let footerView = $("#footerView").val();
 
 
 		    let showViewStringPhp = "";
 
+		    showViewStringPhp += navView+"\n§\n§";
 		    showViewStringPhp += "@\extends('layouts.app') \n§";
 		    showViewStringPhp += "@\section('title','Show') \n§";
 		    showViewStringPhp += "@\section('content') \n§";
@@ -1155,6 +1217,9 @@ var Views = {
 		    showViewStringPhp +="\n §</div> ";
 		    showViewStringPhp +="\n §</div> ";
 		    showViewStringPhp +="\n §</div> ";
+    		showViewStringPhp += "\n §@"+"endsection";
+    		showViewStringPhp += "\n §"+footerView;
+
 
 		    showViewStringJs = showViewStringPhp.replace(/[§]/g,"");
 
@@ -1168,9 +1233,12 @@ var Views = {
 		let tablePlural = $("#tablePlural").val();
 		let totalColumns = $("#totalColumns").html();
 
+		let navView = $("#navView").val();
+		let footerView = $("#footerView").val();
 
 	    var editViewStringPhp = "";
 
+	    editViewStringPhp += navView+"\n§\n§";
 	    editViewStringPhp += "@\extends('layouts.app') \n§";
 	    editViewStringPhp += "@\section('title','Edit') \n§";
 	    editViewStringPhp += "@\section('content') \n§";
@@ -1239,6 +1307,7 @@ var Views = {
 
 
 	    editViewStringPhp +="\n §@"+"endsection";
+	    editViewStringPhp +="\n §"+footerView;
 
 
 	    editViewStringJs = editViewStringPhp.replace(/[§]/g,"");

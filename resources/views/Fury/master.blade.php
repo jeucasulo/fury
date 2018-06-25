@@ -37,7 +37,7 @@
  	<!-- bootstrap bootswatch theme -->
  	<link rel="stylesheet" href="{{asset('css/bootswatch-lux-bootstrap4.min.css')}}" crossorigin="anonymous">
 	
-	<link href="{{$cssFile}}" rel="stylesheet">
+	<link href="@yield('cssFile')" rel="stylesheet">
 
 	<body>
 		<div class="se-pre-con"></div>
@@ -53,8 +53,8 @@
 			      
 			    </ul>
 			    <form class="form-inline my-2 my-lg-0">
-			        <a class="nav-link" href="{{route('fury.generate')}}">CRUDS<span class="sr-only">(current)</span></a>
 			        <a class="nav-link" href="{{route('fury.tables')}}">Tabelas<span class="sr-only">(current)</span></a>
+			        <a class="nav-link" href="{{route('fury.generate')}}">Personalize<span class="sr-only">(current)</span></a>
 			        <a class="nav-link" href="{{route('fury.config')}}">Configurações<span class="sr-only">(current)</span></a>
 			        <a class="nav-link" href="#">Instruções<span class="sr-only">(current)</span></a>
 
@@ -63,7 +63,6 @@
 			  </div>
 			</nav>
 		</section>
-
 
 			@section('content')
 			    <!-- This is the master sidebar. -->
@@ -84,7 +83,7 @@
 			<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
 			<script src="{{asset('bootstrap-4.0.0-dist/js/bootstrap.min.js')}}"  crossorigin="anonymous"></script>
 
-			<script src="{{$jsFile}}"></script>
+			<script src="@yield('jsFile')"></script>
 
 	</body>
 

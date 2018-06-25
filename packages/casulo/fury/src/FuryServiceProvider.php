@@ -18,32 +18,41 @@ class FuryServiceProvider extends ServiceProvider
         // from -> to, de: para:
         $this->publishes([
             // __DIR__.'/views' => resource_path('views/Fury/'),
-            __DIR__.'/views' => base_path('resources/views/Fury/'),
+            // __DIR__.'/views' => base_path('resources/views/Fury/'),
+            base_path('resources/views/Fury/') => base_path('resources/views/Fury/'),
+            public_path('js') => public_path('js'),
+            public_path('CSS') => public_path('CSS'),
+            public_path('img/ajax-loader.gif') => public_path('img/ajax-loader.gif'),
+            public_path('bootstrap-4.0.0-dist') => public_path('bootstrap-4.0.0-dist'),
+            public_path('fury-files') => public_path('fury-files'),
+            
+
+
         ],'fury');
 
         // ok
-        $this->publishes([
-            __DIR__.'/assets/js' => public_path('js'),
-        ], 'fury');
+        // $this->publishes([
+        //     __DIR__.'/assets/js' => public_path('js'),
+        // ], 'fury');
         
-        // ok        
-        $this->publishes([
-            __DIR__.'/assets/css' => public_path('css'),
-        ], 'fury');
-        // ok
-        $this->publishes([
-            __DIR__.'/assets/ajax-loader.gif' => public_path('img/img.png'),
-        ], 'fury');
+        // // ok        
+        // $this->publishes([
+        //     __DIR__.'/assets/css' => public_path('css'),
+        // ], 'fury');
+        // // ok
+        // $this->publishes([
+        //     __DIR__.'/assets/ajax-loader.gif' => public_path('img/ajax-loader.gif'),
+        // ], 'fury');
 
-        // ok
-        $this->publishes([
-            __DIR__.'/assets/bootstrap-4.0.0-dist' => public_path('bootstrap-4.0.0-dist'),
-        ], 'fury');
+        // // ok
+        // $this->publishes([
+        //     __DIR__.'/assets/bootstrap-4.0.0-dist' => public_path('bootstrap-4.0.0-dist'),
+        // ], 'fury');
 
-        // ok
-        $this->publishes([
-            __DIR__.'/assets/fury-files' => public_path('fury-files'),
-        ], 'fury');
+        // // ok
+        // $this->publishes([
+        //     __DIR__.'/assets/fury-files' => public_path('fury-files'),
+        // ], 'fury');
 
 
 
@@ -62,7 +71,7 @@ class FuryServiceProvider extends ServiceProvider
         // register our controller
         $this->app->make('Casulo\Fury\FuryController');
 
-        $this->loadViewsFrom(__DIR__.'/views', 'fury');
+        // $this->loadViewsFrom(__DIR__.'/views', 'fury');
 
 
 

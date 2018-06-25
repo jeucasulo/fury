@@ -1,10 +1,16 @@
-@extends('fury.master',['jsFile'=>'js/index.js','cssFile'=>'css/index.css'])
+@extends('fury.master')
 
 @section('title', 'Fury')
+@section('jsFile', 'js/index.js')
+@section('cssFile', 'css/index.css')
 
 
 @section('content')
     @parent
+    
+
+
+
     <br>
     <br>
     <br>
