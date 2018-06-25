@@ -19,12 +19,20 @@ class FuryServiceProvider extends ServiceProvider
         $this->publishes([
             // __DIR__.'/views' => resource_path('views/Fury/'),
             // __DIR__.'/views' => base_path('resources/views/Fury/'),
-            base_path('resources/views/Fury/') => base_path('resources/views/Fury/'),
-            public_path('js') => public_path('js'),
-            public_path('CSS') => public_path('CSS'),
-            public_path('img/ajax-loader.gif') => public_path('img/ajax-loader.gif'),
-            public_path('bootstrap-4.0.0-dist') => public_path('bootstrap-4.0.0-dist'),
-            public_path('fury-files') => public_path('fury-files'),
+            // base_path('resources/views/Fury/') => base_path('resources/views/Fury/'),
+            __DIR__.'/views' => base_path('resources/views/Fury/'),
+            // public_path('js') => public_path('js'),
+            __DIR__.'/assets/js' => public_path('js'),
+            // public_path('CSS') => public_path('CSS'),
+            __DIR__.'/assets/css' => public_path('css'),
+            // public_path('img/ajax-loader.gif') => public_path('img/ajax-loader.gif'),
+            __DIR__.'/assets/ajax-loader.gif' => public_path('img/ajax-loader.gif'),
+            // public_path('bootstrap-4.0.0-dist') => public_path('bootstrap-4.0.0-dist'),
+            __DIR__.'/assets/bootstrap-4.0.0-dist' => public_path('bootstrap-4.0.0-dist'),
+            // public_path('fury-files') => public_path('fury-files'),
+            __DIR__.'/assets/fury-files' => public_path('fury-files'),
+            
+
             
 
 
