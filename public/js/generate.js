@@ -734,6 +734,7 @@ var Controller = {
 		let tablePlural = $("#tablePlural").val();
 		let totalColumns = $("#totalColumns").html();
 		let controllerPath = $("#controller_path_label").html().replace(/[/]/g,"\\");
+		let modelPath = $("#model_path_label").html().replace(/[/]/g,"\\");
 
 		// alert($("#model_path_label").html());
 
@@ -745,7 +746,8 @@ var Controller = {
 		
 		//index
 		controllerOutputPhp += "\n§\t/** \n§\t * Display a listing of the resource. \n§\t * \n§\t * @return \\Illuminate\\Http\\Response \n §\t */ \n§\tpublic function index() \n§\t{";
-		controllerOutputPhp += "\n§\t\t$"+tablePlural+" = \\App\\Models\\"+tableName+"::all();";
+		// controllerOutputPhp += "\n§\t\t$"+tablePlural+" = \\App\\Models\\"+tableName+"::all();";
+		controllerOutputPhp += "\n§\t\t$"+tablePlural+" = \\"+modelPath+"\\"+tableName+"::all();";
 		controllerOutputPhp += "\n§\t\treturn view('cruds."+tableSingular+".index', compact('"+tablePlural+"'));"; 
 		controllerOutputPhp += "\n§\t}";
 		
@@ -758,7 +760,7 @@ var Controller = {
 		controllerOutputPhp += "\n §\t}";
 
 		//store
-		controllerOutputPhp += "\n §\n §\t/** \n §\t * Store a newly created resource in storage. \n §\t * \n §\t * @param  \\Illuminate\\Http\\Request  $request \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function store(\\App\\Http\\Requests\\"+tableName+"Request $request)\n §\t{//Request $request";
+		controllerOutputPhp += "\n §\n §\t/** \n §\t * Store a newly created resource in storage. \n §\t * \n §\t * @param  \\Illuminate\\Http\\Request  $request \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function store(\\App\\Http\\Request\\"+tableName+"Request $request)\n §\t{//Request $request";
 		controllerOutputPhp += "\n §\t\tif(999==999){ // input your acl or condition";
 		controllerOutputPhp += "\n §\t\t\t\\App\\Models\\"+tableName+"::create($request->all());";
 		controllerOutputPhp += "\n §\t\t\t\//$last_id = \\App\\"+tableName+"::limit(1)->orderBy('"+tableSingular+"_id','desc')->value('"+tableSingular+"_id');";
@@ -797,7 +799,7 @@ var Controller = {
 		controllerOutputPhp += "\n §\t}";
 		
 		//update
-		controllerOutputPhp += "\n §\n §\t/** \n §\t * Update the specified resource in storage. \n §\t *\n §\t * @param  \\Illuminate\\Http\\Request  $request \n §\t * @param  int  $id \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function update(\\App\\Http\\Requests\\"+tableName+"Request $request, $id)\n §\t{//Request $request";
+		controllerOutputPhp += "\n §\n §\t/** \n §\t * Update the specified resource in storage. \n §\t *\n §\t * @param  \\Illuminate\\Http\\Request  $request \n §\t * @param  int  $id \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function update(\\App\\Http\\Request\\"+tableName+"Request $request, $id)\n §\t{//Request $request";
 		controllerOutputPhp += "\n §\t\tif(999==999){ // input your acl or condition";
 		controllerOutputPhp += "\n §\t\t\t\\App\\Models\\"+tableName+"::find($id)->update($request->all());";
 		controllerOutputPhp += "\n §\t\t\t$"+tableSingular+" = \\App\\Models\\"+tableName+"::find($id);// $"+tableSingular+"->name=Input::get('name');"+tableSingular+"->save()//$request->input('input_html')"; 
@@ -927,11 +929,11 @@ var Request = {
 
 	    for (var i = 0; i < totalColumns; i++) {
     		html_name = $("#html_name"+[i]).val();
-	    		if(html_name != null){
+	    		if((html_name != null) && (html_name != "id")){
 		        	// modelOutputPhp +="'"+html_name+"', ";
 		        	requestStringPhp +="\n § \t\t\t\t'"+html_name+"'=>'required|max:20',";
 	    		}else{
-	    			totalColumns++ ;
+	    			// totalColumns++ ;
 	    		}
 	    }
 
@@ -944,13 +946,13 @@ var Request = {
 
     	    for (var i = 0; i < totalColumns; i++) {
         		html_name = $("#html_name"+[i]).val();
-    	    		if(html_name != null){
+    	    		if((html_name != null) && (html_name != "id")){
     		        	// modelOutputPhp +="'"+html_name+"', ";
     		        	// requestStringPhp +="\n | \t\t\t\t'"+html_name+"'=>'required|max:20',";
 		    	        requestStringPhp +="\n § \t\t\t\t'"+html_name+".required'=>'Field required',";
 
     	    		}else{
-    	    			totalColumns++ ;
+    	    			// totalColumns++ ;
     	    		}
     	    }
 
@@ -1074,7 +1076,7 @@ var Views = {
 		//horizontal
 		indexViewStringPhp += "\n §<!-- horizontal -->\n § \n §";
 		indexViewStringPhp += "<div class='container'>\n § \t <div class='row'> \n § \t\t<div class='col-xs-12'>\n §";
-		indexViewStringPhp += "\n §\t\t<h1>All<small>(horizontal) <a href='{\{route(\"cruds."+tableSingular+".create\")}}'><span class='glyphicon glyphicon-plus pull-right'></span></small></a></h1> \n §";
+		indexViewStringPhp += "\n §\t\t<h1>All<small>(horizontal)</small><a href='{\{route(\"cruds."+tableSingular+".create\")}}'><b>+</b></a></h1> \n §";
 		indexViewStringPhp +="\t\t\t<div id='masterDiv'>\n §";
 		indexViewStringPhp += "\t\t\t@"+"foreach";
 		indexViewStringPhp += "($" + tablePlural + " as $" + tableSingular + ")\n §";
@@ -1095,9 +1097,9 @@ var Views = {
 		        	indexViewStringPhp +="\t\t\t<div class='insideDiv'> <h6>{\{$"+tableSingular+"->" +html_name + "}}</h6></div>\n §";
 		    	}
 		    }
-		    indexViewStringPhp +="\t\t\t<div class='insideDiv text-right'>\n § \t\t\t<a href='{\{route('cruds."+tableSingular+".show',$"+tableSingular+"->"+col_id+")}}' class='btn btn-info'><span class='glyphicon glyphicon-eye-open'></span></a>";
-		    indexViewStringPhp +="\n § \t\t\t<a href='{\{route('cruds."+tableSingular+".edit',$"+tableSingular+"->"+col_id+")}}' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-		    indexViewStringPhp +="\n § \t\t\t<a href='#' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+		    indexViewStringPhp +="\t\t\t<div class='insideDiv text-right'>\n § \t\t\t<a href='{\{route(\"cruds."+tableSingular+".show\",$"+tableSingular+"->"+col_id+")}}' class='btn btn-info'>Ver</a>";
+		    indexViewStringPhp +="\n § \t\t\t<a href='{\{route(\"cruds."+tableSingular+".edit\",$"+tableSingular+"->"+col_id+")}}' class='btn btn-success'>Editar</a>";
+		    indexViewStringPhp +="\n § \t\t\t<a href='#' class='btn btn-danger'>Excluir</a>";
 		    indexViewStringPhp +="\n § \t\t\t</div>\n §";
 		    
 		indexViewStringPhp +="\t\t\t</div>\n §";
@@ -1110,7 +1112,7 @@ var Views = {
 		//vertical
 		indexViewStringPhp += "\n §<!-- vertical -->\n § \n §";
 		indexViewStringPhp += "\n §<div class='container'> \n § \t<div class='row'> \n § \t\t<div class='col-xs-12'>";
-		indexViewStringPhp += "\n §\t\t<h1>All<small>(vertical)<small></h1>\n §";
+		indexViewStringPhp += "\n §\t\t<h1>All<small>(vertical)<small><a href='{\{route(\"cruds."+tableSingular+".create\")}}'><b>+</b></a></h1>\n §";
 		indexViewStringPhp += "\n §\t\t\t@"+"foreach";
 		indexViewStringPhp += "($" + tablePlural + " as $" + tableSingular + ")";
 		    indexViewStringPhp += "\n §\t\t\t<div class='col-xs-3 card'>";
@@ -1129,9 +1131,9 @@ var Views = {
 		        	}
 		        }
 		    indexViewStringPhp +="\n §\t\t\t<div class='text-center'>";
-		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route('cruds."+tableSingular+".show',$"+tableSingular+"->"+col_id+")}}' class='btn btn-info'><span class='glyphicon glyphicon-eye-open'></span></a>";
-		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route('cruds."+tableSingular+".edit',$"+tableSingular+"->"+col_id+")}}' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-		    indexViewStringPhp +="\n §\t\t\t<a href='#' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route(\"cruds."+tableSingular+".show\",$"+tableSingular+"->"+col_id+")}}' class='btn btn-info'>Ver</a>";
+		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route(\"cruds."+tableSingular+".edit\",$"+tableSingular+"->"+col_id+")}}' class='btn btn-success'>Editar</a>";
+		    indexViewStringPhp +="\n §\t\t\t<a href='#' class='btn btn-danger'>Excluir</a>";
 		    indexViewStringPhp +="\n §\t\t\t</div> ";
 		    indexViewStringPhp += "\n §\t\t\t<br>\n §</div>";
 		indexViewStringPhp += "\n §\t\t\t@\endforeach \n §";

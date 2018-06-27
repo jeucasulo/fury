@@ -1,6 +1,6 @@
 <?php 
    
- namespace \app\My-Models; 
+ namespace App\Models; 
    
   use Illuminate\Database\Eloquent\Model; 
    
@@ -9,7 +9,7 @@
   		//protected $table = 'furys';//table name 
   		//protected $primaryKey = 'pdt_id';//table pk 
   		protected $fillable = [ 
-  			'id', 'teste', 'teste', '',  
+  			'name', 'test' 
   		]; 
    
   		//public function hasManyFunction(){ 

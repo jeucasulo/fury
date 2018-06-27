@@ -16,9 +16,9 @@
 
 
 
-@extends('layouts.app')
-@section('title','Create')
-@section('content')
+@extends('layouts.app') 
+@section('title','Edit') 
+@section('content') 
 
  <div class='container'>
  <div class='row'>
@@ -26,43 +26,51 @@
  <div class='panel panel-default'>
  <div class='panel-body'>
  <div class='col-md-12'>
- <form id='saveForm' class='form-horizontal' role='form' method='POST' action='{{route("cruds.controle.store")}}' enctype='multipart/form-data'>
- {{ csrf_field() }}
- <!-- --------------------------------Name-------------------------------- -->
- <div class='form-group{{ $errors->has("name") ? " has-error" : "" }}'>
- 	<label for='name' class='col-md-4 control-label'>Name</label>
+ <form id='updateForm' class='form-horizontal' role='form' method='POST' action='{{route('cruds.user.update', $controle->id)}}' enctype='multipart/form-data'>
+ <input type='hidden' name='_method' value='put'>
+ {{ csrf_field() }}<!-- --------------------------------id-------------------------------- -->
+ <div class='form-group{{ $errors->has("id") ? " has-error" : "" }}'>
+ 	<label for='id' class='col-md-4 control-label'>Id</label>
  	<div class='col-md-6'>
- 		<input id='name' type='text' class='form-control' name='name' placeholder='text/binary'>
- 		@if ($errors->has("name"))
+ 		<label id='id' type='text' class='form-control' name='id'>{{$controle->id}}<label>
+ 		@if ($errors->has("id"))
  			<span class='help-block'>
- 				 <strong>{{ $errors->first("name") }}</strong>
+ 				 <strong>{{ $errors->first("id") }}</strong>
  			 </span>
  		@endif 
  	</div>
  </div>
- <!-- --------------------------------/Name-------------------------------- -->
- 
- <!-- --------------------------------Test-------------------------------- -->
- <div class='form-group{{ $errors->has("test") ? " has-error" : "" }}'>
- 	<label for='test' class='col-md-4 control-label'>Test</label>
+ <!-- --------------------------------/id-------------------------------- -->
+ <!-- --------------------------------teste-------------------------------- -->
+ <div class='form-group{{ $errors->has("teste") ? " has-error" : "" }}'>
+ 	<label for='teste' class='col-md-4 control-label'>Nome</label>
  	<div class='col-md-6'>
- 		<input id='test' type='text' class='form-control' name='test' placeholder='text/boolean'>
- 		@if ($errors->has("test"))
+ 		<label id='teste' type='text' class='form-control' name='teste'>{{$controle->teste}}<label>
+ 		@if ($errors->has("teste"))
  			<span class='help-block'>
- 				 <strong>{{ $errors->first("test") }}</strong>
+ 				 <strong>{{ $errors->first("teste") }}</strong>
  			 </span>
  		@endif 
  	</div>
  </div>
- <!-- --------------------------------/Test-------------------------------- -->
+ <!-- --------------------------------/teste-------------------------------- -->
  
  <div class='form-group'>
  <label for='' class='col-md-4 control-label'></label>
  <div class='col-md-6'>
- <button class='btn btn-info'>Adicionar</button>
+ <a href='{{route('cruds.controle.index')}}' class='btn btn-info'>Voltar</a>
+ <br><br>
+ <a href='{{route('cruds.controle.show',$previous)}}' class='glyphicon glyphicon-chevron-left'></a>
+ <span class='badge'>{{$id}}</span>
+ <a href='{{route('cruds.controle.show',$next)}}' class='glyphicon glyphicon-chevron-right'></a>
  </div>
  </div>
- </form>
+ </div> 
+ </div> 
+ </div> 
+ </div> 
+ </div> 
+ </div> 
  @endsection
      <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

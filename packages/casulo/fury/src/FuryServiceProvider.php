@@ -31,7 +31,7 @@ class FuryServiceProvider extends ServiceProvider
             __DIR__.'/assets/bootstrap-4.0.0-dist' => public_path('bootstrap-4.0.0-dist'),
             // public_path('fury-files') => public_path('fury-files'),
             __DIR__.'/assets/fury-files' => public_path('fury-files'),
-            
+
 
             
 

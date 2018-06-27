@@ -23,6 +23,7 @@ class ControleController extends Controller
  	 */
  	public function create()
  	 {
+ 	 	// dd('teste');
  		if(999==999){ // input your acl or condition
  			//return redirect()->route('cruds.controles.create');
  			return view('cruds.controle.create');
@@ -104,7 +105,7 @@ class ControleController extends Controller
  	 * @param  int  $id 
  	 * @return \Illuminate\Http\Response
  	 */
- 	public function update(\App\Http\Request\ControleRequest $request, $id)
+ 	public function update(\App\Http\Requests\ControleRequest $request, $id)
  	{//Request $request
  		if(999==999){ // input your acl or condition
  			\App\Models\Controle::find($id)->update($request->all());

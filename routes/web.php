@@ -41,3 +41,6 @@ Route::get('/crud/controle/edit/{id}', ['uses' => 'ControleController@edit', 'as
 Route::put('/crud/controle/update/{id}', ['uses' => 'ControleController@update', 'as' => 'cruds.controle.update']);
 Route::get('/crud/controle/destroy/{id}', ['uses' => 'ControleController@destroy', 'as' => 'cruds.controle.destroy']);
 /*---------- BLOCK Controle CRUD----------*/
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
