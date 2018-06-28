@@ -734,6 +734,7 @@ var Controller = {
 		let tablePlural = $("#tablePlural").val();
 		let totalColumns = $("#totalColumns").html();
 		let controllerPath = $("#controller_path_label").html().replace(/[/]/g,"\\");
+		let modelPath = $("#model_path_label").html().replace(/[/]/g,"\\");
 
 		// alert($("#model_path_label").html());
 
@@ -745,7 +746,8 @@ var Controller = {
 		
 		//index
 		controllerOutputPhp += "\n§\t/** \n§\t * Display a listing of the resource. \n§\t * \n§\t * @return \\Illuminate\\Http\\Response \n §\t */ \n§\tpublic function index() \n§\t{";
-		controllerOutputPhp += "\n§\t\t$"+tablePlural+" = \\App\\Models\\"+tableName+"::all();";
+		// controllerOutputPhp += "\n§\t\t$"+tablePlural+" = \\App\\Models\\"+tableName+"::all();";
+		controllerOutputPhp += "\n§\t\t$"+tablePlural+" = \\"+modelPath+"\\"+tableName+"::all();";
 		controllerOutputPhp += "\n§\t\treturn view('cruds."+tableSingular+".index', compact('"+tablePlural+"'));"; 
 		controllerOutputPhp += "\n§\t}";
 		
@@ -758,7 +760,7 @@ var Controller = {
 		controllerOutputPhp += "\n §\t}";
 
 		//store
-		controllerOutputPhp += "\n §\n §\t/** \n §\t * Store a newly created resource in storage. \n §\t * \n §\t * @param  \\Illuminate\\Http\\Request  $request \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function store(\\App\\Http\\Requests\\"+tableName+"Request $request)\n §\t{//Request $request";
+		controllerOutputPhp += "\n §\n §\t/** \n §\t * Store a newly created resource in storage. \n §\t * \n §\t * @param  \\Illuminate\\Http\\Request  $request \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function store(\\App\\Http\\Request\\"+tableName+"Request $request)\n §\t{//Request $request";
 		controllerOutputPhp += "\n §\t\tif(999==999){ // input your acl or condition";
 		controllerOutputPhp += "\n §\t\t\t\\App\\Models\\"+tableName+"::create($request->all());";
 		controllerOutputPhp += "\n §\t\t\t\//$last_id = \\App\\"+tableName+"::limit(1)->orderBy('"+tableSingular+"_id','desc')->value('"+tableSingular+"_id');";
@@ -797,7 +799,7 @@ var Controller = {
 		controllerOutputPhp += "\n §\t}";
 		
 		//update
-		controllerOutputPhp += "\n §\n §\t/** \n §\t * Update the specified resource in storage. \n §\t *\n §\t * @param  \\Illuminate\\Http\\Request  $request \n §\t * @param  int  $id \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function update(\\App\\Http\\Requests\\"+tableName+"Request $request, $id)\n §\t{//Request $request";
+		controllerOutputPhp += "\n §\n §\t/** \n §\t * Update the specified resource in storage. \n §\t *\n §\t * @param  \\Illuminate\\Http\\Request  $request \n §\t * @param  int  $id \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function update(\\App\\Http\\Request\\"+tableName+"Request $request, $id)\n §\t{//Request $request";
 		controllerOutputPhp += "\n §\t\tif(999==999){ // input your acl or condition";
 		controllerOutputPhp += "\n §\t\t\t\\App\\Models\\"+tableName+"::find($id)->update($request->all());";
 		controllerOutputPhp += "\n §\t\t\t$"+tableSingular+" = \\App\\Models\\"+tableName+"::find($id);// $"+tableSingular+"->name=Input::get('name');"+tableSingular+"->save()//$request->input('input_html')"; 
@@ -926,12 +928,12 @@ var Request = {
 	    requestStringPhp+=" \n § \t\t\treturn [";
 
 	    for (var i = 0; i < totalColumns; i++) {
+	    	let create_view_visibility = $("#create_view_visibility"+i).is(":checked");
     		html_name = $("#html_name"+[i]).val();
-	    		if(html_name != null){
-		        	// modelOutputPhp +="'"+html_name+"', ";
+	    		if((html_name != null) && (create_view_visibility)){
 		        	requestStringPhp +="\n § \t\t\t\t'"+html_name+"'=>'required|max:20',";
 	    		}else{
-	    			totalColumns++ ;
+	    			// totalColumns++ ;
 	    		}
 	    }
 
@@ -944,13 +946,10 @@ var Request = {
 
     	    for (var i = 0; i < totalColumns; i++) {
         		html_name = $("#html_name"+[i]).val();
-    	    		if(html_name != null){
-    		        	// modelOutputPhp +="'"+html_name+"', ";
-    		        	// requestStringPhp +="\n | \t\t\t\t'"+html_name+"'=>'required|max:20',";
+    	    		if((html_name != null) && (html_name != "id")){
 		    	        requestStringPhp +="\n § \t\t\t\t'"+html_name+".required'=>'Field required',";
-
     	    		}else{
-    	    			totalColumns++ ;
+    	    			// totalColumns++ ;
     	    		}
     	    }
 
@@ -1074,7 +1073,7 @@ var Views = {
 		//horizontal
 		indexViewStringPhp += "\n §<!-- horizontal -->\n § \n §";
 		indexViewStringPhp += "<div class='container'>\n § \t <div class='row'> \n § \t\t<div class='col-xs-12'>\n §";
-		indexViewStringPhp += "\n §\t\t<h1>All<small>(horizontal) <a href='{\{route(\"cruds."+tableSingular+".create\")}}'><span class='glyphicon glyphicon-plus pull-right'></span></small></a></h1> \n §";
+		indexViewStringPhp += "\n §\t\t<h1>All<small>(horizontal)</small><a href='{\{route(\"cruds."+tableSingular+".create\")}}'><b>+</b></a></h1> \n §";
 		indexViewStringPhp +="\t\t\t<div id='masterDiv'>\n §";
 		indexViewStringPhp += "\t\t\t@"+"foreach";
 		indexViewStringPhp += "($" + tablePlural + " as $" + tableSingular + ")\n §";
@@ -1095,9 +1094,9 @@ var Views = {
 		        	indexViewStringPhp +="\t\t\t<div class='insideDiv'> <h6>{\{$"+tableSingular+"->" +html_name + "}}</h6></div>\n §";
 		    	}
 		    }
-		    indexViewStringPhp +="\t\t\t<div class='insideDiv text-right'>\n § \t\t\t<a href='{\{route('cruds."+tableSingular+".show',$"+tableSingular+"->"+col_id+")}}' class='btn btn-info'><span class='glyphicon glyphicon-eye-open'></span></a>";
-		    indexViewStringPhp +="\n § \t\t\t<a href='{\{route('cruds."+tableSingular+".edit',$"+tableSingular+"->"+col_id+")}}' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-		    indexViewStringPhp +="\n § \t\t\t<a href='#' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+		    indexViewStringPhp +="\t\t\t<div class='insideDiv text-right'>\n § \t\t\t<a href='{\{route(\"cruds."+tableSingular+".show\",$"+tableSingular+"->"+col_id+")}}' class='btn btn-info'>Ver</a>";
+		    indexViewStringPhp +="\n § \t\t\t<a href='{\{route(\"cruds."+tableSingular+".edit\",$"+tableSingular+"->"+col_id+")}}' class='btn btn-success'>Editar</a>";
+		    indexViewStringPhp +="\n § \t\t\t<a href='#' class='btn btn-danger'>Excluir</a>";
 		    indexViewStringPhp +="\n § \t\t\t</div>\n §";
 		    
 		indexViewStringPhp +="\t\t\t</div>\n §";
@@ -1110,7 +1109,7 @@ var Views = {
 		//vertical
 		indexViewStringPhp += "\n §<!-- vertical -->\n § \n §";
 		indexViewStringPhp += "\n §<div class='container'> \n § \t<div class='row'> \n § \t\t<div class='col-xs-12'>";
-		indexViewStringPhp += "\n §\t\t<h1>All<small>(vertical)<small></h1>\n §";
+		indexViewStringPhp += "\n §\t\t<h1>All<small>(vertical)<small><a href='{\{route(\"cruds."+tableSingular+".create\")}}'><b>+</b></a></h1>\n §";
 		indexViewStringPhp += "\n §\t\t\t@"+"foreach";
 		indexViewStringPhp += "($" + tablePlural + " as $" + tableSingular + ")";
 		    indexViewStringPhp += "\n §\t\t\t<div class='col-xs-3 card'>";
@@ -1129,9 +1128,9 @@ var Views = {
 		        	}
 		        }
 		    indexViewStringPhp +="\n §\t\t\t<div class='text-center'>";
-		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route('cruds."+tableSingular+".show',$"+tableSingular+"->"+col_id+")}}' class='btn btn-info'><span class='glyphicon glyphicon-eye-open'></span></a>";
-		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route('cruds."+tableSingular+".edit',$"+tableSingular+"->"+col_id+")}}' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
-		    indexViewStringPhp +="\n §\t\t\t<a href='#' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route(\"cruds."+tableSingular+".show\",$"+tableSingular+"->"+col_id+")}}' class='btn btn-info'>Ver</a>";
+		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route(\"cruds."+tableSingular+".edit\",$"+tableSingular+"->"+col_id+")}}' class='btn btn-success'>Editar</a>";
+		    indexViewStringPhp +="\n §\t\t\t<a href='#' class='btn btn-danger'>Excluir</a>";
 		    indexViewStringPhp +="\n §\t\t\t</div> ";
 		    indexViewStringPhp += "\n §\t\t\t<br>\n §</div>";
 		indexViewStringPhp += "\n §\t\t\t@\endforeach \n §";
@@ -1203,11 +1202,11 @@ var Views = {
 		    showViewStringPhp +="\n §<div class='form-group'>";
 		    showViewStringPhp +="\n §<label for='' class='col-md-4 control-label'></label>";
 		    showViewStringPhp +="\n §<div class='col-md-6'>";
-		    showViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".index')}}' class='btn btn-info'>Voltar</a>";
+		    showViewStringPhp +="\n §<a href='{\{route(\"cruds."+tableSingular+".index\")}}' class='btn btn-info'>Voltar</a>";
 		    showViewStringPhp +="\n §<br><br>";
-		    showViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".show',$previous)}}' class='glyphicon glyphicon-chevron-left'></a>";
+		    showViewStringPhp +="\n §<a href='{\{route(\"cruds."+tableSingular+".show\",$previous)}}'><</a>";
 		    showViewStringPhp +="\n §<span class='badge'>{\{$id}}</span>";
-		    showViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".show',$next)}}' class='glyphicon glyphicon-chevron-right'></a>";
+		    showViewStringPhp +="\n §<a href='{\{route(\"cruds."+tableSingular+".show\",$next)}}'>></a>";
 		    showViewStringPhp +="\n §</div>";
 		    showViewStringPhp +="\n §</div>";
 
@@ -1249,7 +1248,7 @@ var Views = {
 	    editViewStringPhp +="\n §<div class='panel panel-default'>";
 	    editViewStringPhp +="\n §<div class='panel-body'>";
 	    editViewStringPhp +="\n §<div class='col-md-12'>";
-	    editViewStringPhp +="\n §<form id='updateForm' class='form-horizontal' role='form' method='POST' action='{\{route(\'cruds.user.update\', "+"$"+tableSingular+"->id)}}' enctype='multipart/form-data'>";
+	    editViewStringPhp +="\n §<form id='updateForm' class='form-horizontal' role='form' method='POST' action='{\{route(\'cruds."+tableSingular+".update\', "+"$"+tableSingular+"->id)}}' enctype='multipart/form-data'>";
 	    editViewStringPhp +="\n §<input type='hidden' name='_method' value='put'>";
 	    editViewStringPhp +="\n §{\{ csrf_field() }\}";
 
@@ -1288,11 +1287,9 @@ var Views = {
 	    editViewStringPhp +="\n §<div class='form-group'>";
 	    editViewStringPhp +="\n §<label for='' class='col-md-4 control-label'></label>";
 	    editViewStringPhp +="\n §<div class='col-md-6'>";
-	    editViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".index')}}' class='btn btn-info'>Voltar</a>";
+	    editViewStringPhp +="\n §<a href='{\{route(\"cruds."+tableSingular+".index\")}}' class='btn btn-info'>Voltar</a>";
 	    editViewStringPhp +="\n §<br><br>";
-	    editViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".show',$previous)}}' class='glyphicon glyphicon-chevron-left'></a>";
-	    editViewStringPhp +="\n §<span class='badge'>{\{$id}}</span>";
-	    editViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".show',$next)}}' class='glyphicon glyphicon-chevron-right'></a>";
+	    // editViewStringPhp +="\n §<span class='badge'>{\{$"+tableSingular+"->"+html_name+"}}</span>";
 	    editViewStringPhp +="\n §</div>";
 	    editViewStringPhp +="\n §</div>";
 
