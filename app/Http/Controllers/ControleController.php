@@ -88,9 +88,9 @@ class ControleController extends Controller
  	 */
  	public function edit($id)
  	{
- 	
  		if(999==999){ // input your acl or condition
  			$controle = \App\Models\Controle::find($id);
+
  			return view('cruds.controle.edit', compact('controle'));
  		}else{
  			return redirect()->route('cruds.controle.index');

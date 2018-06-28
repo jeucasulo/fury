@@ -17,7 +17,7 @@
 
 
 @extends('layouts.app') 
-@section('title','Edit') 
+@section('title','Show') 
 @section('content') 
 
  <div class='container'>
@@ -25,10 +25,20 @@
  <div class='col-md-10 col-md-offset-1'>
  <div class='panel panel-default'>
  <div class='panel-body'>
- <div class='col-md-12'>
- <form id='updateForm' class='form-horizontal' role='form' method='POST' action='{{route('cruds.controle.update', $controle->id)}}' enctype='multipart/form-data'>
- <input type='hidden' name='_method' value='put'>
- {{ csrf_field() }}<!-- --------------------------------name-------------------------------- -->
+ <div class='col-md-12'><!-- --------------------------------Id-------------------------------- -->
+ <div class='form-group{{ $errors->has("id") ? " has-error" : "" }}'>
+ 	<label for='id' class='col-md-4 control-label'>Id</label>
+ 	<div class='col-md-6'>
+ 		<label id='id' type='text' class='form-control' name='id'>{{$controle->id}}<label>
+ 		@if ($errors->has("id"))
+ 			<span class='help-block'>
+ 				 <strong>{{ $errors->first("id") }}</strong>
+ 			 </span>
+ 		@endif 
+ 	</div>
+ </div>
+ <!-- --------------------------------/Id-------------------------------- -->
+ <!-- --------------------------------Name-------------------------------- -->
  <div class='form-group{{ $errors->has("name") ? " has-error" : "" }}'>
  	<label for='name' class='col-md-4 control-label'>Name</label>
  	<div class='col-md-6'>
@@ -37,13 +47,11 @@
  			<span class='help-block'>
  				 <strong>{{ $errors->first("name") }}</strong>
  			 </span>
- 		
- <span class='badge'>{{$controle->name}}</span>
  		@endif 
  	</div>
  </div>
- <!-- --------------------------------/name-------------------------------- -->
- <!-- --------------------------------test-------------------------------- -->
+ <!-- --------------------------------/Name-------------------------------- -->
+ <!-- --------------------------------Test-------------------------------- -->
  <div class='form-group{{ $errors->has("test") ? " has-error" : "" }}'>
  	<label for='test' class='col-md-4 control-label'>Test</label>
  	<div class='col-md-6'>
@@ -52,17 +60,19 @@
  			<span class='help-block'>
  				 <strong>{{ $errors->first("test") }}</strong>
  			 </span>
- 		
- <span class='badge'>{{$controle->test}}</span>
  		@endif 
  	</div>
  </div>
- <!-- --------------------------------/test-------------------------------- -->
+ <!-- --------------------------------/Test-------------------------------- -->
  
  <div class='form-group'>
  <label for='' class='col-md-4 control-label'></label>
  <div class='col-md-6'>
+ <a href='{{route("cruds.controle.index")}}' class='btn btn-info'>Voltar</a>
  <br><br>
+ <a href='{{route("cruds.controle.show",$previous)}}'><</a>
+ <span class='badge'>{{$id}}</span>
+ <a href='{{route("cruds.controle.show",$next)}}'>></a>
  </div>
  </div>
  </div> 

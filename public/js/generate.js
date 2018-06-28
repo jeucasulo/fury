@@ -928,9 +928,9 @@ var Request = {
 	    requestStringPhp+=" \n § \t\t\treturn [";
 
 	    for (var i = 0; i < totalColumns; i++) {
+	    	let create_view_visibility = $("#create_view_visibility"+i).is(":checked");
     		html_name = $("#html_name"+[i]).val();
-	    		if((html_name != null) && (html_name != "id")){
-		        	// modelOutputPhp +="'"+html_name+"', ";
+	    		if((html_name != null) && (create_view_visibility)){
 		        	requestStringPhp +="\n § \t\t\t\t'"+html_name+"'=>'required|max:20',";
 	    		}else{
 	    			// totalColumns++ ;
@@ -947,10 +947,7 @@ var Request = {
     	    for (var i = 0; i < totalColumns; i++) {
         		html_name = $("#html_name"+[i]).val();
     	    		if((html_name != null) && (html_name != "id")){
-    		        	// modelOutputPhp +="'"+html_name+"', ";
-    		        	// requestStringPhp +="\n | \t\t\t\t'"+html_name+"'=>'required|max:20',";
 		    	        requestStringPhp +="\n § \t\t\t\t'"+html_name+".required'=>'Field required',";
-
     	    		}else{
     	    			// totalColumns++ ;
     	    		}
@@ -1205,11 +1202,11 @@ var Views = {
 		    showViewStringPhp +="\n §<div class='form-group'>";
 		    showViewStringPhp +="\n §<label for='' class='col-md-4 control-label'></label>";
 		    showViewStringPhp +="\n §<div class='col-md-6'>";
-		    showViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".index')}}' class='btn btn-info'>Voltar</a>";
+		    showViewStringPhp +="\n §<a href='{\{route(\"cruds."+tableSingular+".index\")}}' class='btn btn-info'>Voltar</a>";
 		    showViewStringPhp +="\n §<br><br>";
-		    showViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".show',$previous)}}' class='glyphicon glyphicon-chevron-left'></a>";
+		    showViewStringPhp +="\n §<a href='{\{route(\"cruds."+tableSingular+".show\",$previous)}}'><</a>";
 		    showViewStringPhp +="\n §<span class='badge'>{\{$id}}</span>";
-		    showViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".show',$next)}}' class='glyphicon glyphicon-chevron-right'></a>";
+		    showViewStringPhp +="\n §<a href='{\{route(\"cruds."+tableSingular+".show\",$next)}}'>></a>";
 		    showViewStringPhp +="\n §</div>";
 		    showViewStringPhp +="\n §</div>";
 
@@ -1251,7 +1248,7 @@ var Views = {
 	    editViewStringPhp +="\n §<div class='panel panel-default'>";
 	    editViewStringPhp +="\n §<div class='panel-body'>";
 	    editViewStringPhp +="\n §<div class='col-md-12'>";
-	    editViewStringPhp +="\n §<form id='updateForm' class='form-horizontal' role='form' method='POST' action='{\{route(\'cruds.user.update\', "+"$"+tableSingular+"->id)}}' enctype='multipart/form-data'>";
+	    editViewStringPhp +="\n §<form id='updateForm' class='form-horizontal' role='form' method='POST' action='{\{route(\'cruds."+tableSingular+".update\', "+"$"+tableSingular+"->id)}}' enctype='multipart/form-data'>";
 	    editViewStringPhp +="\n §<input type='hidden' name='_method' value='put'>";
 	    editViewStringPhp +="\n §{\{ csrf_field() }\}";
 
@@ -1290,11 +1287,9 @@ var Views = {
 	    editViewStringPhp +="\n §<div class='form-group'>";
 	    editViewStringPhp +="\n §<label for='' class='col-md-4 control-label'></label>";
 	    editViewStringPhp +="\n §<div class='col-md-6'>";
-	    editViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".index')}}' class='btn btn-info'>Voltar</a>";
+	    editViewStringPhp +="\n §<a href='{\{route(\"cruds."+tableSingular+".index\")}}' class='btn btn-info'>Voltar</a>";
 	    editViewStringPhp +="\n §<br><br>";
-	    editViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".show',$previous)}}' class='glyphicon glyphicon-chevron-left'></a>";
-	    editViewStringPhp +="\n §<span class='badge'>{\{$id}}</span>";
-	    editViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".show',$next)}}' class='glyphicon glyphicon-chevron-right'></a>";
+	    // editViewStringPhp +="\n §<span class='badge'>{\{$"+tableSingular+"->"+html_name+"}}</span>";
 	    editViewStringPhp +="\n §</div>";
 	    editViewStringPhp +="\n §</div>";
 

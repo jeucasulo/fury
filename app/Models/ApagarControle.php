@@ -9,7 +9,7 @@
   		//protected $table = 'furys';//table name 
   		//protected $primaryKey = 'pdt_id';//table pk 
   		protected $fillable = [ 
-  			'id', 'name', 'test',  
+  			'name', 'test' 
   		]; 
    
   		//public function hasManyFunction(){ 
