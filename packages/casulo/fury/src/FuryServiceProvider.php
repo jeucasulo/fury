@@ -17,49 +17,37 @@ class FuryServiceProvider extends ServiceProvider
         
         // from -> to, de: para:
         $this->publishes([
-            // __DIR__.'/views' => resource_path('views/Fury/'),
-            // __DIR__.'/views' => base_path('resources/views/Fury/'),
-            // base_path('resources/views/Fury/') => base_path('resources/views/Fury/'),
             __DIR__.'/views' => base_path('resources/views/Fury/'),
-            // public_path('js') => public_path('js'),
-            __DIR__.'/assets/js' => public_path('js'),
-            // public_path('CSS') => public_path('CSS'),
-            __DIR__.'/assets/css' => public_path('css'),
-            // public_path('img/ajax-loader.gif') => public_path('img/ajax-loader.gif'),
-            __DIR__.'/assets/ajax-loader.gif' => public_path('img/ajax-loader.gif'),
-            // public_path('bootstrap-4.0.0-dist') => public_path('bootstrap-4.0.0-dist'),
-            __DIR__.'/assets/bootstrap-4.0.0-dist' => public_path('bootstrap-4.0.0-dist'),
-            // public_path('fury-files') => public_path('fury-files'),
-            __DIR__.'/assets/fury-files' => public_path('fury-files'),
-
-
-            
-
-
+            __DIR__.'/public' => public_path('')
+            // __DIR__.'/public/js' => public_path('js'),
+            // __DIR__.'/public/css' => public_path('css'),
+            // __DIR__.'/public/ajax-loader.gif' => public_path('img/ajax-loader.gif'),
+            // __DIR__.'/public/bootstrap-4.0.0-dist' => public_path('bootstrap-4.0.0-dist'),
+            // __DIR__.'/public/fury-files' => public_path('fury-files'),
         ],'fury');
 
         // ok
         // $this->publishes([
-        //     __DIR__.'/assets/js' => public_path('js'),
+        //     __DIR__.'/public/js' => public_path('js'),
         // ], 'fury');
         
         // // ok        
         // $this->publishes([
-        //     __DIR__.'/assets/css' => public_path('css'),
+        //     __DIR__.'/public/css' => public_path('css'),
         // ], 'fury');
         // // ok
         // $this->publishes([
-        //     __DIR__.'/assets/ajax-loader.gif' => public_path('img/ajax-loader.gif'),
-        // ], 'fury');
-
-        // // ok
-        // $this->publishes([
-        //     __DIR__.'/assets/bootstrap-4.0.0-dist' => public_path('bootstrap-4.0.0-dist'),
+        //     __DIR__.'/public/ajax-loader.gif' => public_path('img/ajax-loader.gif'),
         // ], 'fury');
 
         // // ok
         // $this->publishes([
-        //     __DIR__.'/assets/fury-files' => public_path('fury-files'),
+        //     __DIR__.'/public/bootstrap-4.0.0-dist' => public_path('bootstrap-4.0.0-dist'),
+        // ], 'fury');
+
+        // // ok
+        // $this->publishes([
+        //     __DIR__.'/public/fury-files' => public_path('fury-files'),
         // ], 'fury');
 
 
