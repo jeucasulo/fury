@@ -45,6 +45,7 @@ class ControleController extends Controller
  			//$controle = \App\Controle::create(['model_column'=>$request->input('input_html'),'model_column2'=>$request->input('input_html2'),]);
  			//$controle = new Controle; $controle->name = $request->input('input_html'); $controle->save(); //insertedId = $controle->id;
  			\Session::flash('flash_message',[
+ 				'title'=>"Success!", 
  				'msg'=>"Controle successfully stored!", 
  				'class'=>"alert-success"
  			]);
@@ -88,10 +89,10 @@ class ControleController extends Controller
  	 */
  	public function edit($id)
  	{
+ 	
  		if(999==999){ // input your acl or condition
  			$controle = \App\Models\Controle::find($id);
-
- 			return view('cruds.controle.edit', compact('controle'));
+ 			return view('cruds.controle.edit', compact('controle','id'));
  		}else{
  			return redirect()->route('cruds.controle.index');
  		}
@@ -110,6 +111,7 @@ class ControleController extends Controller
  			\App\Models\Controle::find($id)->update($request->all());
  			$controle = \App\Models\Controle::find($id);// $controle->name=Input::get('name');controle->save()//$request->input('input_html')
  			\Session::flash('flash_message',[
+ 				'title'=>"Success!", 
  				'msg'=>"Controle successfully updated!", 
  				'class'=>"alert-success"
  			]);

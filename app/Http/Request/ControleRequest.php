@@ -32,7 +32,7 @@
   		public function messages() 
   		{ 
   			return [
-  				'name.required'=>'Field required',
+  				'name.required'=>'O seu arrombado da pra colar o nome???',
   				'test.required'=>'Field required', 
   			]; 
   		}

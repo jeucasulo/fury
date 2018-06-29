@@ -44,3 +44,12 @@ Route::get('/crud/controle/destroy/{id}', ['uses' => 'ControleController@destroy
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+/*---------- BLOCK Controle CRUD----------*/
+Route::get('/crud/controle', ['uses' => 'ControleController@index', 'as' => 'cruds.controle.index']);
+Route::get('/crud/controle/show/{id}', ['uses' => 'ControleController@show', 'as' => 'cruds.controle.show']);
+Route::get('/crud/controle/create', ['uses' => 'ControleController@create', 'as' => 'cruds.controle.create']);
+Route::post('/crud/controle/store', ['uses' => 'ControleController@store', 'as' => 'cruds.controle.store']);
+Route::get('/crud/controle/edit/{id}', ['uses' => 'ControleController@edit', 'as' => 'cruds.controle.edit']);
+Route::put('/crud/controle/update/{id}', ['uses' => 'ControleController@update', 'as' => 'cruds.controle.update']);
+Route::get('/crud/controle/destroy/{id}', ['uses' => 'ControleController@destroy', 'as' => 'cruds.controle.destroy']);
+/*---------- BLOCK Controle CRUD----------*/

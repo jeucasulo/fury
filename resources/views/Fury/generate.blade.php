@@ -13,6 +13,7 @@
         <label id="table_name_label"></label><br>
         <label id="table_singular_label"></label><br>
         <label id="table_plural_label"></label><br>
+        <label id="table_id"></label><br>
         <label id="currentTableStaticShort" name="currentTableStaticShort"></label><br>
         <label id="totalColumns" name="totalColumns" class="badge badge-primary"></label><br>
       </div>
@@ -62,6 +63,8 @@
               <span>Nome: </span><input type="text" id="tableName" name="tableName" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
               <span>Singular: </span><input type="text" id="tableSingular" name="tableSingular" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
               <span>Plural: </span><input type="text" id="tablePlural" name="tablePlural" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
+              <span>Id: </span><input type="text" id="tableId" name="tableId" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
+
               
               &nbsp&nbsp&nbsp&nbsp
               <button type="button" id="addNewCOlumn" class="btn btn-info float-sm-right">+ Coluna</button>

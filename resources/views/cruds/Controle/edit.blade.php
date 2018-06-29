@@ -26,19 +26,17 @@
  <div class='panel panel-default'>
  <div class='panel-body'>
  <div class='col-md-12'>
- <form id='updateForm' class='form-horizontal' role='form' method='POST' action='{{route('cruds.controle.update', $controle->id)}}' enctype='multipart/form-data'>
+ <form id='updateForm' class='form-horizontal' role='form' method='POST' action='{{route("cruds.controle.update", $id)}}' enctype='multipart/form-data'>
  <input type='hidden' name='_method' value='put'>
  {{ csrf_field() }}<!-- --------------------------------name-------------------------------- -->
  <div class='form-group{{ $errors->has("name") ? " has-error" : "" }}'>
  	<label for='name' class='col-md-4 control-label'>Name</label>
  	<div class='col-md-6'>
- 		<label id='name' type='text' class='form-control' name='name'>{{$controle->name}}<label>
+ 		<input id='name' type='text' class='form-control' name='name' value='{{$controle->name}}'/>
  		@if ($errors->has("name"))
  			<span class='help-block'>
  				 <strong>{{ $errors->first("name") }}</strong>
  			 </span>
- 		
- <span class='badge'>{{$controle->name}}</span>
  		@endif 
  	</div>
  </div>
@@ -47,22 +45,23 @@
  <div class='form-group{{ $errors->has("test") ? " has-error" : "" }}'>
  	<label for='test' class='col-md-4 control-label'>Test</label>
  	<div class='col-md-6'>
- 		<label id='test' type='text' class='form-control' name='test'>{{$controle->test}}<label>
+ 		<input id='test' type='text' class='form-control' name='test' value='{{$controle->test}}'/>
  		@if ($errors->has("test"))
  			<span class='help-block'>
  				 <strong>{{ $errors->first("test") }}</strong>
  			 </span>
- 		
- <span class='badge'>{{$controle->test}}</span>
  		@endif 
  	</div>
  </div>
  <!-- --------------------------------/test-------------------------------- -->
  
  <div class='form-group'>
- <label for='' class='col-md-4 control-label'></label>
+ <label for='' class='col-md-4 control-label'>{{$id}}</label>
  <div class='col-md-6'>
+ <button class='btn btn-success'>Atualizar</button>
+ <a href='{{route("cruds.controle.index")}}' class='btn btn-info'>Voltar</a>
  <br><br>
+ </form>
  </div>
  </div>
  </div> 

@@ -29,15 +29,16 @@
  		<h1>All<small>(horizontal)</small><a href='{{route("cruds.controle.create")}}'><b>+</b></a></h1> 
  			<div id=''>
  			@foreach($controles as $controle)
- 			<div class='row'>
- 			<div class='col'> <h6>{{$controle->id}}</h6></div>
- 			<div class='col'> <h6>{{$controle->name}}</h6></div>
- 			<div class='col'> <h6>{{$controle->test}}</h6></div>
- 			<div class='btn-group'>
-        <!-- <a href='{{route("cruds.controle.show",$controle->id)}}' class='btn btn-info'>&rarrhk;</a> -->
-  			<a href='{{route("cruds.controle.show",$controle->id)}}' class='btn btn-info'>&rarrhk;</a>
-  			<a href='{{route("cruds.controle.edit",$controle->id)}}' class='btn btn-success'>&equiv;</a>
-  			<a href='#' class='btn btn-danger'>x</a>
+   			<div class='row'>
+   			<div class='col'> <h6>{{$controle->id}}</h6></div>
+   			<div class='col'> <h6>{{$controle->name}}</h6></div>
+   			<div class='col'> <h6>{{$controle->test}}</h6></div>
+   			<div class='col text-right'>
+          <div class="btn-group">
+      			<a href='{{route("cruds.controle.show",$controle->id)}}' class='btn btn-info'>&rarrhk;</a>
+      			<a href='{{route("cruds.controle.edit",$controle->id)}}' class='btn btn-success'>&equiv;</a>
+      			<a href='#' class='btn btn-danger'>x</a>
+          </div>
   			</div>
  			</div>
  			@endforeach 
@@ -52,23 +53,22 @@
  <div class='container'> 
   	<div class='row'> 
   		<div class='col-xs-12'>
- 		<h1>All<small>(vertical)</small><a href='{{route("cruds.controle.create")}}'><b>+</b></a></h1>
+ 		<h1>All<small>(vertical)<small><a href='{{route("cruds.controle.create")}}'><b>+</b></a></h1>
  
- 			<div class='row'>
  			@foreach($controles as $controle)
- 			<div class='col-2 card'>
+ 			<div class='col-xs-3 card'>
  			 <h5> {{$controle->id}}</h5>
  			 <h5> {{$controle->name}}</h5>
  			 <h5> {{$controle->test}}</h5>
  			<div class='text-center'>
- 			<a href='{{route("cruds.controle.show",$controle->id)}}' class='btn btn-info'>&rarrhk;</a>
- 			<a href='{{route("cruds.controle.edit",$controle->id)}}' class='btn btn-success'>&equiv;</a>
- 			<a href='#' class='btn btn-danger'>x</a>
+ 			<a href='{{route("cruds.controle.show",$controle->id)}}' class='btn btn-info'>Ver</a>
+ 			<a href='{{route("cruds.controle.edit",$controle->id)}}' class='btn btn-success'>Editar</a>
+ 			<a href='#' class='btn btn-danger'>Excluir</a>
  			</div> 
  			<br>
  </div>
  			@endforeach 
- 		</div>		</div> 
+ 		</div> 
   	</div> 
  </div>
  @endsection

@@ -68,23 +68,13 @@
             </div>
         </nav>
 
-        <!-- crud message -->
-            @if(Session::has('flash_message'))
-                <div class='container'>
-                    <div class='row'>
-                        <div class='col-md-12'>
-                        <div align='center' class='alert {{Session::get("flash_message")["class"]}}'>
-                            {{Session::get('flash_message')['msg']}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
-        <!-- crud message -->
-
         <main class="py-4">
             @yield('content')
         </main>
     </div>
 </body>
 </html>
+
+
+
+

@@ -244,11 +244,13 @@ var Index = {
 			$("#tableName").val(myObj.table_name);
 			$("#tableSingular").val(myObj.singular);
 			$("#tablePlural").val(myObj.plural);
+			$("#tableId").val(myObj.id);
 			$("#lastId").html(lastId);
 
 			$("#table_name_label").html($("#tableName").val());
 			$("#table_singular_label").html($("#tableSingular").val());
 			$("#table_plural_label").html($("#tablePlural").val());
+			$("#table_id").html($("#tableId").val());
 			$("#totalColumns").html(totalColumns);
 
 		  	
@@ -326,6 +328,7 @@ var Index = {
 		let tableName = $("#tableName").val();
 		let tableSingular = $("#tableSingular").val();
 		let tablePlural = $("#tablePlural").val();
+		let tableId = $("#tableId").val();
 		let current_table_path = $("#currentTableStaticShort").html();
 
 		$("#controller_name").val(tableName+"Controller");
@@ -344,7 +347,7 @@ var Index = {
 		newJsonFile += "\"table_name\":\""+tableName+"\", | \n\t";
 		newJsonFile += "\"singular\":\""+tableSingular+"\", | \n\t";
 		newJsonFile += "\"plural\":\""+tablePlural+"\", | \n\t";
-		// newJsonFile += "\"current_table_path\":\""+current_table_path+"\", | \n\t";
+		newJsonFile += "\"id\":\""+tableId+"\", | \n\t";
 		newJsonFile += "\"current_table_path\":\""+current_table_path+"\", | \n\t";
 		newJsonFile += "\"fields\":[ | \n\t";
 
@@ -732,6 +735,7 @@ var Controller = {
 		let tableName = $("#tableName").val();
 		let tableSingular = $("#tableSingular").val();
 		let tablePlural = $("#tablePlural").val();
+		let tableId = $("#tableId").val();
 		let totalColumns = $("#totalColumns").html();
 		let controllerPath = $("#controller_path_label").html().replace(/[/]/g,"\\");
 		let modelPath = $("#model_path_label").html().replace(/[/]/g,"\\");
@@ -766,7 +770,7 @@ var Controller = {
 		controllerOutputPhp += "\n §\t\t\t\//$last_id = \\App\\"+tableName+"::limit(1)->orderBy('"+tableSingular+"_id','desc')->value('"+tableSingular+"_id');";
 		controllerOutputPhp += "\n §\t\t\t//$"+tableSingular+" = \\App\\"+tableName+"::create(['model_column'=>$request->input('input_html'),'model_column2'=>$request->input('input_html2'),]);";
 		controllerOutputPhp += "\n §\t\t\t//$"+tableSingular+" = new "+tableName+"; $"+tableSingular+"->name = $request->input('input_html'); $"+tableSingular+"->save(); //insertedId = $"+tableSingular+"->id;";
-		controllerOutputPhp += "\n §\t\t\t\\Session::flash('flash_message',[\n §\t\t\t\t'msg'=>\""+tableName+" successfully stored!\", \n §\t\t\t\t'class'=>\"alert-success\"\n §\t\t\t]);";
+		controllerOutputPhp += "\n §\t\t\t\\Session::flash('flash_message',[\n §\t\t\t\t'title'=>\"Success!\",\n §\t\t\t\t'msg'=>\""+tableName+" successfully stored!\", \n §\t\t\t\t'class'=>\"alert-success\"\n §\t\t\t]);";
 		controllerOutputPhp += "\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');";
 		controllerOutputPhp += "\n §\t\t}else{\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n §\t\t}";
 		controllerOutputPhp += "\n §\t}";
@@ -794,7 +798,7 @@ var Controller = {
 		controllerOutputPhp += "\n §\n §\t/** \n §\t * Show the form for editing the specified resource. \n §\t * \n §\t * @param  int  $id \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function edit($id)\n §\t{\n §\t";
 		controllerOutputPhp += "\n §\t\tif(999==999){ // input your acl or condition";
 		controllerOutputPhp += "\n §\t\t\t$"+tableSingular+" = \\App\\Models\\"+tableName+"::find($id);";
-		controllerOutputPhp += "\n §\t\t\treturn view('cruds."+tableSingular+".edit', compact('"+tableSingular+"'));";
+		controllerOutputPhp += "\n §\t\t\treturn view('cruds."+tableSingular+".edit', compact('"+tableSingular+"','id'));";
 		controllerOutputPhp += "\n §\t\t}else{\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n §\t\t}";
 		controllerOutputPhp += "\n §\t}";
 		
@@ -803,7 +807,7 @@ var Controller = {
 		controllerOutputPhp += "\n §\t\tif(999==999){ // input your acl or condition";
 		controllerOutputPhp += "\n §\t\t\t\\App\\Models\\"+tableName+"::find($id)->update($request->all());";
 		controllerOutputPhp += "\n §\t\t\t$"+tableSingular+" = \\App\\Models\\"+tableName+"::find($id);// $"+tableSingular+"->name=Input::get('name');"+tableSingular+"->save()//$request->input('input_html')"; 
-		controllerOutputPhp += "\n §\t\t\t\\Session::flash('flash_message',[\n §\t\t\t\t'msg'=>\""+tableName+" successfully updated!\", \n §\t\t\t\t'class'=>\"alert-success\"\n §\t\t\t]);";
+		controllerOutputPhp += "\n §\t\t\t\\Session::flash('flash_message',[\n §\t\t\t\t'title'=>\"Success!\",\n §\t\t\t\t'msg'=>\""+tableName+" successfully updated!\", \n §\t\t\t\t'class'=>\"alert-success\"\n §\t\t\t]);";
 		controllerOutputPhp += "\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');";
 		controllerOutputPhp += "\n §\t\t}else{\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n §\t\t}";
 		controllerOutputPhp += "\n §\t}";
@@ -813,7 +817,7 @@ var Controller = {
 		controllerOutputPhp += "\n §\t\tif(999==999){ // input your acl or condition";
 		controllerOutputPhp += "\n §\t\t\t$"+tableSingular+" = \\App\\Models\\"+tableName+"::find($id);";
 		controllerOutputPhp += "\n §\t\t\t$"+tableSingular+"->delete();";
-		controllerOutputPhp += "\n §\t\t\t\Session::flash('flash_message',['\n §\t\t\t\tmsg'=>\""+tableName+" successfully removed!\", \n §\t\t\t\t'class'=>\"alert-success\"\n §\t\t\t]);";
+		controllerOutputPhp += "\n §\t\t\t\Session::flash('flash_message',[\n §\t\t\t\t'title'=>\"Atention!\",\n §\t\t\t\t'msg'=>\""+tableName+" successfully removed!\", \n §\t\t\t\t'class'=>\"alert-success\"\n §\t\t\t]);";
 		controllerOutputPhp += "\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');";
 		controllerOutputPhp += "\n §\t\t}else{\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n §\t\t}";
 		controllerOutputPhp += "\n §\t}";
@@ -835,6 +839,7 @@ var Model = {
 		let tableName = $("#tableName").val();
 		let tableSingular = $("#tableSingular").val();
 		let tablePlural = $("#tablePlural").val();
+		let tableId = $("#tableId").val();
 		let totalColumns = $("#totalColumns").html();
 		let modelPath = $("#model_path_label").html().replace(/[/]/g,"\\");
 
@@ -853,7 +858,7 @@ var Model = {
 	    modelOutputPhp+=" \n § class "+tableName+" extends Model";
 	    modelOutputPhp+=" \n § {";
 	    modelOutputPhp+=" \n § \t\t//protected $table = 'furys';//table name";
-	    modelOutputPhp+=" \n § \t\t//protected $primaryKey = 'pdt_id';//table pk";
+	    modelOutputPhp+=" \n § \t\t//protected $primaryKey = "+tableId+";//table pk";
 	    modelOutputPhp+=" \n § \t\tprotected $fillable = [";
 	    modelOutputPhp+=" \n § \t\t\t";
 
@@ -862,7 +867,7 @@ var Model = {
 	    		if(html_name != null){
 		        	modelOutputPhp +="'"+html_name+"', ";
 	    		}else{
-	    			totalColumns++ ;
+	    			// totalColumns++ ;
 	    		}
 	    }
 
@@ -1013,7 +1018,7 @@ var Views = {
     	
 	    	
 		    	if (create_view_visibility) {
-		    		console.log("if 2");
+		    		// console.log("if 2");
 		            createViewStringPhp +="\n §<!-- --------------------------------"+display_name+"-------------------------------- -->\n §";
 		            createViewStringPhp +="<div class='form-group{\{ $errors->has(\""+html_name+"\") ? \" has-error\" : \"\" }}'>";
 		            createViewStringPhp +="\n §\t";
@@ -1054,6 +1059,8 @@ var Views = {
 		let tableName = $("#tableName").val();
 		let tableSingular = $("#tableSingular").val();
 		let tablePlural = $("#tablePlural").val();
+		let tableId = $("#tableId").val();
+
 		let totalColumns = $("#totalColumns").html();
 
 		let navView = $("#navView").val();
@@ -1067,17 +1074,27 @@ var Views = {
 		indexViewStringPhp += "@\section('title','Index') \n§";
 		indexViewStringPhp += "@\section('content') \n§";
 
-
-
+		// crud message
+		indexViewStringPhp += "@if(Session::has('flash_message'))";
+		indexViewStringPhp += "<div class='container'>";
+		indexViewStringPhp += "<div class='alert {{Session::get(\"flash_message\")[\"class\"]}} alert-dismissible fade show text-center' role='alert'>";
+		indexViewStringPhp += "<strong>{{Session::get('flash_message')['title']}}</strong> {{Session::get('flash_message')['msg']}}";
+		indexViewStringPhp += "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>";
+		indexViewStringPhp += "<span aria-hidden='true'>&times;</span>";
+		indexViewStringPhp += "</button>";
+		indexViewStringPhp += "</div>";
+		indexViewStringPhp += "</div>";
+		indexViewStringPhp += "@endif";
+		// crud message
 
 		//horizontal
 		indexViewStringPhp += "\n §<!-- horizontal -->\n § \n §";
 		indexViewStringPhp += "<div class='container'>\n § \t <div class='row'> \n § \t\t<div class='col-xs-12'>\n §";
 		indexViewStringPhp += "\n §\t\t<h1>All<small>(horizontal)</small><a href='{\{route(\"cruds."+tableSingular+".create\")}}'><b>+</b></a></h1> \n §";
-		indexViewStringPhp +="\t\t\t<div id='masterDiv'>\n §";
+		indexViewStringPhp +="\t\t\t<div id=''>\n §";
 		indexViewStringPhp += "\t\t\t@"+"foreach";
 		indexViewStringPhp += "($" + tablePlural + " as $" + tableSingular + ")\n §";
-		indexViewStringPhp +="\t\t\t<div class='rowDiv'>\n §";
+		indexViewStringPhp +="\t\t\t<div class='row'>\n §";
 		    for (var i = 0; i < totalColumns; i++) {
 
 		    	let display_name = $("#display_name"+i).val();
@@ -1088,15 +1105,14 @@ var Views = {
 		    	let index_view_visibility = $("#index_view_visibility"+i).is(":checked");
 		    	let defaults = $("#default"+i).val();
 
-
-
 				if (index_view_visibility) {
-		        	indexViewStringPhp +="\t\t\t<div class='insideDiv'> <h6>{\{$"+tableSingular+"->" +html_name + "}}</h6></div>\n §";
+		        	indexViewStringPhp +="\t\t\t<div class='col'> <h6>{\{$"+tableSingular+"->" +html_name + "}}</h6></div>\n §";
 		    	}
 		    }
-		    indexViewStringPhp +="\t\t\t<div class='insideDiv text-right'>\n § \t\t\t<a href='{\{route(\"cruds."+tableSingular+".show\",$"+tableSingular+"->"+col_id+")}}' class='btn btn-info'>Ver</a>";
-		    indexViewStringPhp +="\n § \t\t\t<a href='{\{route(\"cruds."+tableSingular+".edit\",$"+tableSingular+"->"+col_id+")}}' class='btn btn-success'>Editar</a>";
-		    indexViewStringPhp +="\n § \t\t\t<a href='#' class='btn btn-danger'>Excluir</a>";
+		    indexViewStringPhp +="\t\t\t<div class='btn-group'>";
+		    indexViewStringPhp +="\n § \t\t\t<a href='{\{route(\"cruds."+tableSingular+".show\",$"+tableSingular+"->"+tableId+")}}' class='btn btn-info'>&rarrhk;</a>";
+		    indexViewStringPhp +="\n § \t\t\t<a href='{\{route(\"cruds."+tableSingular+".edit\",$"+tableSingular+"->"+tableId+")}}' class='btn btn-success'>&equiv;</a>";
+		    indexViewStringPhp +="\n § \t\t\t<a href='#' class='btn btn-danger'>x</a>";
 		    indexViewStringPhp +="\n § \t\t\t</div>\n §";
 		    
 		indexViewStringPhp +="\t\t\t</div>\n §";
@@ -1109,10 +1125,11 @@ var Views = {
 		//vertical
 		indexViewStringPhp += "\n §<!-- vertical -->\n § \n §";
 		indexViewStringPhp += "\n §<div class='container'> \n § \t<div class='row'> \n § \t\t<div class='col-xs-12'>";
-		indexViewStringPhp += "\n §\t\t<h1>All<small>(vertical)<small><a href='{\{route(\"cruds."+tableSingular+".create\")}}'><b>+</b></a></h1>\n §";
+		indexViewStringPhp += "\n §\t\t<h1>All<small>(vertical)</small><a href='{\{route(\"cruds."+tableSingular+".create\")}}'><b>+</b></a></h1>\n §";
+		indexViewStringPhp += "\n §\t\t\t<div class='row'>";
 		indexViewStringPhp += "\n §\t\t\t@"+"foreach";
 		indexViewStringPhp += "($" + tablePlural + " as $" + tableSingular + ")";
-		    indexViewStringPhp += "\n §\t\t\t<div class='col-xs-3 card'>";
+		    indexViewStringPhp += "\n §\t\t\t<div class='col-2 card'>";
 		        for (var i = 0; i < totalColumns; i++) {
 
 		        	let display_name = $("#display_name"+i).val();
@@ -1128,12 +1145,13 @@ var Views = {
 		        	}
 		        }
 		    indexViewStringPhp +="\n §\t\t\t<div class='text-center'>";
-		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route(\"cruds."+tableSingular+".show\",$"+tableSingular+"->"+col_id+")}}' class='btn btn-info'>Ver</a>";
-		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route(\"cruds."+tableSingular+".edit\",$"+tableSingular+"->"+col_id+")}}' class='btn btn-success'>Editar</a>";
-		    indexViewStringPhp +="\n §\t\t\t<a href='#' class='btn btn-danger'>Excluir</a>";
+		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route(\"cruds."+tableSingular+".show\",$"+tableSingular+"->"+tableId+")}}' class='btn btn-info'>&rarrhk;</a>";
+		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route(\"cruds."+tableSingular+".edit\",$"+tableSingular+"->"+tableId+")}}' class='btn btn-success'>&equiv;</a>";
+		    indexViewStringPhp +="\n §\t\t\t<a href='#' class='btn btn-danger'>x</a>";
 		    indexViewStringPhp +="\n §\t\t\t</div> ";
 		    indexViewStringPhp += "\n §\t\t\t<br>\n §</div>";
 		indexViewStringPhp += "\n §\t\t\t@\endforeach \n §";
+		indexViewStringPhp += "\t\t</div>";
 		indexViewStringPhp += "\t\t</div> \n § \t</div> \n §</div>";
 		indexViewStringPhp += "\n §@"+"endsection";
 		indexViewStringPhp += "\n §"+footerView;
@@ -1144,6 +1162,7 @@ var Views = {
 		$("#indexView_string_output").val(indexViewStringJs);
 	},
 	GenerateShowView:function(){
+    		// let col_id = "id";
 		    let tableSingular = $("#tableSingular").val();
 		    let tablePlural = $("#tablePlural").val();
 		    let totalColumns = $("#totalColumns").html();
@@ -1248,7 +1267,7 @@ var Views = {
 	    editViewStringPhp +="\n §<div class='panel panel-default'>";
 	    editViewStringPhp +="\n §<div class='panel-body'>";
 	    editViewStringPhp +="\n §<div class='col-md-12'>";
-	    editViewStringPhp +="\n §<form id='updateForm' class='form-horizontal' role='form' method='POST' action='{\{route(\'cruds."+tableSingular+".update\', "+"$"+tableSingular+"->id)}}' enctype='multipart/form-data'>";
+	    editViewStringPhp +="\n §<form id='updateForm' class='form-horizontal' role='form' method='POST' action='{\{route(\"cruds."+tableSingular+".update\", $id)}}' enctype='multipart/form-data'>";
 	    editViewStringPhp +="\n §<input type='hidden' name='_method' value='put'>";
 	    editViewStringPhp +="\n §{\{ csrf_field() }\}";
 
@@ -1273,7 +1292,7 @@ var Views = {
 		        editViewStringPhp +="\n §\t";
 		        editViewStringPhp +="<div class='col-md-6'>";
 		        editViewStringPhp +="\n §\t\t";
-		        editViewStringPhp +="<label id='"+html_name+"' type='"+html_type+"' class='form-control' name='"+html_name+"'>{\{$"+tableSingular+"->"+html_name+"}}<label>";
+		        editViewStringPhp +="<input id='"+html_name+"' type='"+html_type+"' class='form-control' name='"+html_name+"' value='{\{$"+tableSingular+"->"+html_name+"}}'/>";
 		        editViewStringPhp +="\n §\t\t";
 		        editViewStringPhp +="@\if ($errors->has(\""+html_name+"\"))";
 		        editViewStringPhp +="\n §\t\t\t";
@@ -1285,16 +1304,15 @@ var Views = {
 	    }
 
 	    editViewStringPhp +="\n §<div class='form-group'>";
-	    editViewStringPhp +="\n §<label for='' class='col-md-4 control-label'></label>";
+	    editViewStringPhp +="\n §<label for='' class='col-md-4 control-label'>{\{$id}}</label>";
 	    editViewStringPhp +="\n §<div class='col-md-6'>";
+	    editViewStringPhp +="\n §<button class='btn btn-success'>Atualizar</button>";
 	    editViewStringPhp +="\n §<a href='{\{route(\"cruds."+tableSingular+".index\")}}' class='btn btn-info'>Voltar</a>";
 	    editViewStringPhp +="\n §<br><br>";
-	    // editViewStringPhp +="\n §<span class='badge'>{\{$"+tableSingular+"->"+html_name+"}}</span>";
+	    editViewStringPhp +="\n §</form>";
+
 	    editViewStringPhp +="\n §</div>";
 	    editViewStringPhp +="\n §</div>";
-
-	    //editViewStringPhp +="\n §</form>";
-
 	    editViewStringPhp +="\n §</div> ";
 	    editViewStringPhp +="\n §</div> ";
 	    editViewStringPhp +="\n §</div> ";
